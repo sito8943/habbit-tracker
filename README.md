@@ -1,73 +1,78 @@
-# React + TypeScript + Vite
+# Habit Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A personal habit tracking app built with **React**, **TypeScript**, and **Vite**. Track your daily progress across custom habit types — from workouts and skills to reading and mindfulness — all in one place.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Description
 
-## React Compiler
+Habit Tracker lets you define your own habit types and the specific data you want to log for each one. Every day, you open the calendar, pick a date, and record your activity per habit type. Over time, you build a detailed history of your progress that you can review and reflect on.
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+The core idea is flexibility: instead of a fixed list of habits, you design your own — choose what fields matter to you (duration, reps, notes, rating, etc.) and log accordingly.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Potential Features
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Core
+- **Custom habit types** — define your own habits (e.g., "Workout", "Reading", "Skill practice") with a name, icon, and color
+- **Custom fields per habit** — for each habit type, define the data you want to log (text, number, duration, rating, checkbox, etc.)
+- **Calendar view** — monthly calendar showing which days have logged entries and at a glance how active you were
+- **Daily log** — click any day on the calendar to view or add entries for each habit type
+- **Entry form** — dynamic form generated from the habit type's field definitions
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Habits
+- **Physical activity** — log exercise type, duration, reps, distance, notes
+- **Skills & learning** — log what you practiced, for how long, resources used
+- **Reading** — book title, pages read, notes
+- **Custom habits** — any habit you can define with your own fields
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Analytics & History
+- **Streak tracking** — current and longest streak per habit type
+- **Progress charts** — visualize your data over time (bar, line charts)
+- **Monthly/weekly summary** — overview of activity per habit type
+- **Heatmap** — GitHub-style contribution heatmap per habit
+
+### UX
+- **Dark / light mode**
+- **Responsive design** — works on mobile and desktop
+- **Local storage persistence** — no backend required to get started
+- **Data export** — export your logs as JSON or CSV
+
+### Future / Nice to have
+- **Reminders / notifications** — push reminders for daily logging
+- **Goals** — set targets per habit (e.g., exercise 4x/week) and track progress toward them
+- **Tags** — tag entries for filtering and grouping
+- **Cloud sync** — optional backend to sync across devices
+- **Multi-user** — separate profiles on the same device
+
+---
+
+## Tech Stack
+
+| Tool | Purpose |
+|---|---|
+| React 19 | UI framework |
+| TypeScript | Type safety |
+| Vite | Build tool & dev server |
+| ESLint + Prettier | Code quality & formatting |
+
+---
+
+## Getting Started
+
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Scripts
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+| Command | Description |
+|---|---|
+| `npm run dev` | Start dev server |
+| `npm run build` | Build for production |
+| `npm run lint` | Run ESLint |
+| `npm run preview` | Preview production build |
