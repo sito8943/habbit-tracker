@@ -15,6 +15,7 @@ The core idea is flexibility: instead of a fixed list of habits, you design your
 ## Potential Features
 
 ### Core
+
 - **Custom habit types** — define your own habits (e.g., "Workout", "Reading", "Skill practice") with a name, icon, and color
 - **Custom fields per habit** — for each habit type, define the data you want to log (text, number, duration, rating, checkbox, etc.)
 - **Calendar view** — monthly calendar showing which days have logged entries and at a glance how active you were
@@ -22,24 +23,28 @@ The core idea is flexibility: instead of a fixed list of habits, you design your
 - **Entry form** — dynamic form generated from the habit type's field definitions
 
 ### Habits
+
 - **Physical activity** — log exercise type, duration, reps, distance, notes
 - **Skills & learning** — log what you practiced, for how long, resources used
 - **Reading** — book title, pages read, notes
 - **Custom habits** — any habit you can define with your own fields
 
 ### Analytics & History
+
 - **Streak tracking** — current and longest streak per habit type
 - **Progress charts** — visualize your data over time (bar, line charts)
 - **Monthly/weekly summary** — overview of activity per habit type
 - **Heatmap** — GitHub-style contribution heatmap per habit
 
 ### UX
+
 - **Dark / light mode**
 - **Responsive design** — works on mobile and desktop
 - **Local storage persistence** — no backend required to get started
 - **Data export** — export your logs as JSON or CSV
 
 ### Future / Nice to have
+
 - **Reminders / notifications** — push reminders for daily logging
 - **Goals** — set targets per habit (e.g., exercise 4x/week) and track progress toward them
 - **Tags** — tag entries for filtering and grouping
@@ -50,11 +55,11 @@ The core idea is flexibility: instead of a fixed list of habits, you design your
 
 ## Tech Stack
 
-| Tool | Purpose |
-|---|---|
-| React 19 | UI framework |
-| TypeScript | Type safety |
-| Vite | Build tool & dev server |
+| Tool              | Purpose                   |
+| ----------------- | ------------------------- |
+| React 19          | UI framework              |
+| TypeScript        | Type safety               |
+| Vite              | Build tool & dev server   |
 | ESLint + Prettier | Code quality & formatting |
 
 ---
@@ -70,9 +75,9 @@ npm run dev
 
 ## Scripts
 
-| Command | Description |
-|---|---|
-| `npm run dev` | Start dev server |
-| `npm run build` | Build for production |
-| `npm run lint` | Run ESLint |
+| Command           | Description              |
+| ----------------- | ------------------------ |
+| `npm run dev`     | Start dev server         |
+| `npm run build`   | Build for production     |
+| `npm run lint`    | Run ESLint               |
 | `npm run preview` | Preview production build |
