@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint . && prettier --write .",
+    "lint": "eslint . && prettier --write . && depcheck .",
     "preview": "vite preview",
     "prepare": "husky"
   },
@@ -20,6 +20,7 @@
     "@types/react": "^19.1.16",
     "@types/react-dom": "^19.1.9",
     "@vitejs/plugin-react-swc": "^4.1.0",
+    "depcheck": "^1.4.7",
     "eslint": "^9.0.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-react-hooks": "^5.2.0",
