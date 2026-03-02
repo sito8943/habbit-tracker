@@ -15,23 +15,12 @@ const HabitList = ({ habits, logs, date, onToggle, onDelete }: Props) => {
   }
 
   return (
-    <ul style={{ listStyle: "none", padding: 0 }}>
+    <ul className="habit-list">
       {habits.map((habit) => {
         const logged = isLogged(logs, habit.id, date)
         const streak = getStreak(logs, habit.id)
         return (
-          <li
-            key={habit.id}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 8,
-              padding: "8px 0",
-              borderLeft: `4px solid ${habit.color}`,
-              paddingLeft: 10,
-              marginBottom: 4,
-            }}
-          >
+          <li key={habit.id} className="habit-list-item" style={{ borderLeftColor: habit.color }}>
             <input
               type="checkbox"
               id={habit.id}
@@ -40,12 +29,7 @@ const HabitList = ({ habits, logs, date, onToggle, onDelete }: Props) => {
             />
             <label
               htmlFor={habit.id}
-              style={{
-                flex: 1,
-                cursor: "pointer",
-                textDecoration: logged ? "line-through" : "none",
-                opacity: logged ? 0.6 : 1,
-              }}
+              className={`habit-label${logged ? " habit-label-completed" : ""}`}
             >
               {habit.name}
             </label>

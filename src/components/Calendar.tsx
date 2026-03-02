@@ -22,17 +22,10 @@ const Calendar = ({ logs, selectedDate, onSelectDate }: Props) => {
 
   return (
     <div>
-      <h3 style={{ marginBottom: 8 }}>{monthLabel}</h3>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(7, 1fr)",
-          gap: 4,
-          textAlign: "center",
-        }}
-      >
+      <h3 className="calendar-month-title">{monthLabel}</h3>
+      <div className="calendar-grid">
         {WEEKDAYS.map((d) => (
-          <div key={d} style={{ fontWeight: "bold", fontSize: 12, padding: 4 }}>
+          <div key={d} className="calendar-weekday">
             {d}
           </div>
         ))}
@@ -51,24 +44,21 @@ const Calendar = ({ logs, selectedDate, onSelectDate }: Props) => {
             <button
               key={dateStr}
               onClick={() => onSelectDate(dateStr)}
-              style={{
-                padding: "6px 2px",
-                background: isSelected ? "#3498db" : hasLog ? "#2ecc71" : "transparent",
-                color: isSelected ? "#fff" : "inherit",
-                border: isToday ? "2px solid #f39c12" : "1px solid #ccc",
-                cursor: "pointer",
-                borderRadius: 4,
-                fontWeight: isToday ? "bold" : "normal",
-              }}
+              className={[
+                "calendar-day",
+                hasLog ? "calendar-day-logged" : "",
+                isSelected ? "calendar-day-selected" : "",
+                isToday ? "calendar-day-today" : "",
+              ]
+                .filter(Boolean)
+                .join(" ")}
             >
               {day.getDate()}
             </button>
           )
         })}
       </div>
-      <p style={{ fontSize: 12, marginTop: 8 }}>
-        Green = logged · Blue = selected · Orange border = today
-      </p>
+      <p className="calendar-legend">Green = logged · Blue = selected · Orange border = today</p>
     </div>
   )
 }

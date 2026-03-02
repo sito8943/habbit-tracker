@@ -18,31 +18,24 @@ const HabitForm = ({ onAdd }: Props) => {
   }
 
   return (
-    <form onSubmit={handleSubmit} style={{ marginTop: 16 }}>
-      <div style={{ display: "flex", gap: 8, marginBottom: 8 }}>
+    <form onSubmit={handleSubmit} className="habit-form">
+      <div className="habit-form-row">
         <input
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="New habit..."
-          style={{ flex: 1, padding: "4px 8px" }}
+          className="habit-input"
         />
         <button type="submit">Add</button>
       </div>
-      <div style={{ display: "flex", gap: 6 }}>
+      <div className="color-picker">
         {COLORS.map((c) => (
           <button
             key={c}
             type="button"
             onClick={() => setColor(c)}
-            style={{
-              width: 24,
-              height: 24,
-              background: c,
-              border: color === c ? "3px solid #000" : "2px solid transparent",
-              cursor: "pointer",
-              borderRadius: 4,
-              padding: 0,
-            }}
+            className={`color-swatch${color === c ? " color-swatch-selected" : ""}`}
+            style={{ background: c }}
           />
         ))}
       </div>

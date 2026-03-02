@@ -43,10 +43,10 @@ const App = () => {
   const doneCount = habits.filter((h) => isLogged(logs, h.id, selectedDate)).length
 
   return (
-    <div style={{ maxWidth: 480, margin: "0 auto", padding: 16 }}>
+    <div className="app-shell">
       <h1>Habit Tracker</h1>
 
-      <nav style={{ display: "flex", gap: 8, marginBottom: 16 }}>
+      <nav className="view-nav">
         <button onClick={() => setView("today")} disabled={view === "today"}>
           Today
         </button>
