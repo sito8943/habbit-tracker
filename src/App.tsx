@@ -39,23 +39,33 @@ const App = () => {
   )
 
   const doneCount = habits.filter((h) => isLogged(logs, h.id, selectedDate)).length
+  const navButtonClass =
+    "rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm font-medium text-slate-700 transition hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-50"
 
   return (
-    <div className="app-shell">
-      <h1>Habit Tracker</h1>
+    <div className="mx-auto max-w-[480px] p-4">
+      <h1 className="mb-4 text-4xl">Habit Tracker</h1>
 
-      <nav className="view-nav">
-        <button onClick={() => setView("today")} disabled={view === "today"}>
+      <nav className="mb-4 flex gap-2">
+        <button
+          onClick={() => setView("today")}
+          disabled={view === "today"}
+          className={navButtonClass}
+        >
           Today
         </button>
-        <button onClick={() => setView("calendar")} disabled={view === "calendar"}>
+        <button
+          onClick={() => setView("calendar")}
+          disabled={view === "calendar"}
+          className={navButtonClass}
+        >
           Calendar
         </button>
       </nav>
 
       {view === "today" ? (
         <>
-          <h2>
+          <h2 className="mb-3 text-lg font-semibold text-slate-700">
             {selectedDate} — {doneCount}/{habits.length} done
           </h2>
           <HabitList

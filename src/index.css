@@ -1,22 +1,14 @@
-@reference "./styles/variables.css";
+@import "tailwindcss";
 
-.app-shell {
-  max-width: 480px;
-  margin: 0 auto;
-  padding: 16px;
-}
+@layer base {
+  body {
+    font-family: "Roboto Variable", sans-serif;
+    font-weight: 400;
+    background-color: #f8fafc;
+    color: #0f172a;
+  }
 
-.view-nav {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 16px;
-}
-
-* {
-  font-family: "Roboto Variable", sans-serif;
-  font-weight: 400;
-}
-
-h1 {
-  font-family: "Alice", serif;
+  h1 {
+    font-family: "Alice", serif;
+  }
 }

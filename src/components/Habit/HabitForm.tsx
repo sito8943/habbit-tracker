@@ -1,7 +1,7 @@
 import { useState } from "react"
 import type { HabitFormPropsType } from "./types"
 import { COLORS } from "../../utils/constant"
-import "./styles.css"
+
 const HabitForm = ({ onAdd }: HabitFormPropsType) => {
   const [name, setName] = useState("")
   const [color, setColor] = useState(COLORS[0])
@@ -14,23 +14,28 @@ const HabitForm = ({ onAdd }: HabitFormPropsType) => {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="habit-form">
-      <div className="habit-form-row">
+    <form onSubmit={handleSubmit} className="mt-4">
+      <div className="mb-2 flex gap-2">
         <input
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="New habit..."
-          className="habit-input"
+          className="flex-1 rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 placeholder:text-slate-400 focus:border-slate-500 focus:outline-none"
         />
-        <button type="submit">Add</button>
+        <button
+          type="submit"
+          className="rounded-md border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+        >
+          Add
+        </button>
       </div>
-      <div className="color-picker">
+      <div className="flex gap-1.5">
         {COLORS.map((c) => (
           <button
             key={c}
             type="button"
             onClick={() => setColor(c)}
-            className={`color-swatch${color === c ? " color-swatch-selected" : ""}`}
+            className={`h-6 w-6 cursor-pointer rounded-sm border-2 p-0 transition ${color === c ? "border-slate-900" : "border-transparent"}`}
             style={{ background: c }}
           />
         ))}
