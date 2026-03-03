@@ -9,3 +9,13 @@
   gap: 8px;
   margin-bottom: 16px;
 }
+
+* {
+  font-family: "Roboto Variable", sans-serif;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Alice", serif;
+}

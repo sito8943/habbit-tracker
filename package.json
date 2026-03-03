@@ -11,6 +11,8 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@fontsource-variable/roboto": "^5.2.10",
+    "@fontsource/alice": "^5.2.8",
     "react": "^19.1.1",
     "react-dom": "^19.1.1"
   },

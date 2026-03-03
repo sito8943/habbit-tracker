@@ -3,6 +3,9 @@ import { createRoot } from "react-dom/client"
 import "./global.css"
 import App from "./App.tsx"
 
+import "@fontsource/alice"
+import "@fontsource-variable/roboto"
+
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <App />
