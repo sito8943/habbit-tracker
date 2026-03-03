@@ -1,3 +1,5 @@
+@reference "../../styles/variables.css";
+
 .calendar-month-title {
   margin-bottom: 8px;
 }

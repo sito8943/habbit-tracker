@@ -13,8 +13,10 @@
   "dependencies": {
     "@fontsource-variable/roboto": "^5.2.10",
     "@fontsource/alice": "^5.2.8",
+    "@tailwindcss/vite": "^4.2.1",
     "react": "^19.1.1",
-    "react-dom": "^19.1.1"
+    "react-dom": "^19.1.1",
+    "tailwindcss": "^4.2.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",

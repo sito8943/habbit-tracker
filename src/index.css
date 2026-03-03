@@ -1,3 +1,5 @@
+@reference "./styles/variables.css";
+
 .app-shell {
   max-width: 480px;
   margin: 0 auto;
@@ -12,10 +14,9 @@
 
 * {
   font-family: "Roboto Variable", sans-serif;
+  font-weight: 400;
 }
 
-h1,
-h2,
-h3 {
+h1 {
   font-family: "Alice", serif;
 }
