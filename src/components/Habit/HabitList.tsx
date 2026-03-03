@@ -1,4 +1,7 @@
+import { faXmark } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { isLogged, getStreak } from "../../utils/habits"
+import { IconButton } from "../Button"
 import type { HabitListPropsType } from "./types"
 
 const HabitList = ({ habits, logs, date, onToggle, onDelete }: HabitListPropsType) => {
@@ -22,7 +25,7 @@ const HabitList = ({ habits, logs, date, onToggle, onDelete }: HabitListPropsTyp
               id={habit.id}
               checked={logged}
               onChange={() => onToggle(habit.id)}
-              className="h-4 w-4 accent-color-primary"
+              className="h-4 w-4 accent-primary"
             />
             <label
               htmlFor={habit.id}
@@ -35,13 +38,14 @@ const HabitList = ({ habits, logs, date, onToggle, onDelete }: HabitListPropsTyp
                 {streak}d
               </span>
             )}
-            <button
+            <IconButton
               onClick={() => onDelete(habit.id)}
               aria-label="Delete habit"
-              className="rounded px-2 py-0.5 text-sm text-text-muted transition hover:bg-bg-error hover:text-error"
+              color="error"
+              variant="text"
             >
-              x
-            </button>
+              <FontAwesomeIcon icon={faXmark} />
+            </IconButton>
           </li>
         )
       })}

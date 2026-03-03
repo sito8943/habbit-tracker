@@ -1,6 +1,7 @@
 import { useState } from "react"
 import type { HabitFormPropsType } from "./types"
 import { COLORS } from "../../utils/constant"
+import { Button } from "../Button"
 
 const HabitForm = ({ onAdd }: HabitFormPropsType) => {
   const [name, setName] = useState("")
@@ -20,14 +21,11 @@ const HabitForm = ({ onAdd }: HabitFormPropsType) => {
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="New habit..."
-          className="flex-1 rounded-md border border-border bg-base-light px-3 py-2 text-sm text-text placeholder:text-text-muted focus:border-color-primary focus:outline-none"
+          className="flex-1 rounded-md border border-border bg-base-light px-3 py-2 text-sm text-text placeholder:text-text-muted focus:border-primary focus:outline-none"
         />
-        <button
-          type="submit"
-          className="rounded-md border border-bg-primary bg-color-primary px-3 py-2 text-sm font-medium text-info transition hover:bg-hover-primary"
-        >
+        <Button type="submit" variant="filled" color="primary" className="px-3 py-2">
           Add
-        </button>
+        </Button>
       </div>
       <div className="flex gap-1.5">
         {COLORS.map((c) => (

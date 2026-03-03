@@ -2,7 +2,7 @@ import { useState, useCallback } from "react"
 import type { Habit, LogEntry } from "./utils/habits"
 import { generateId, today, isLogged } from "./utils/habits"
 import { useLocalStorage } from "./hooks"
-import { Calendar, HabitForm, HabitList } from "./components"
+import { Button, Calendar, HabitForm, HabitList } from "./components"
 
 const App = () => {
   const [habits, setHabits] = useLocalStorage<Habit[]>("ht_habits", [])
@@ -39,28 +39,27 @@ const App = () => {
   )
 
   const doneCount = habits.filter((h) => isLogged(logs, h.id, selectedDate)).length
-  const navButtonClass =
-    "rounded-md border border-border bg-[var(--color-base-light)] px-3 py-1.5 text-sm font-medium text-text transition hover:bg-[var(--color-base-dark)] disabled:cursor-not-allowed disabled:opacity-50"
-
   return (
     <main className="mx-auto mt-10 max-w-120 rounded-lg border border-border bg-base-light p-4">
       <h1 className="mb-4 text-4xl">Focus Habit</h1>
 
       <nav className="mb-4 flex gap-2">
-        <button
+        <Button
           onClick={() => setView("today")}
           disabled={view === "today"}
-          className={navButtonClass}
+          variant="filled"
+          color="primary"
         >
           Today
-        </button>
-        <button
+        </Button>
+        <Button
           onClick={() => setView("calendar")}
           disabled={view === "calendar"}
-          className={navButtonClass}
+          variant="outlined"
+          color="primary"
         >
           Calendar
-        </button>
+        </Button>
       </nav>
 
       {view === "today" ? (
