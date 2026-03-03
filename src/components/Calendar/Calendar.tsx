@@ -1,6 +1,6 @@
 import { useMemo } from "react"
 import { formatDate, getMonthDays, hasAnyLog } from "../../utils/habits"
-import { WEEKDAYS } from "../constant"
+import { WEEKDAYS } from "../../utils/constant"
 import type { CalendarPropsTypes } from "./types"
 import "./styles.css"
 const Calendar = ({ logs, selectedDate, onSelectDate }: CalendarPropsTypes) => {

@@ -1,6 +1,6 @@
 import { useState } from "react"
 import type { HabitFormPropsType } from "./types"
-import { COLORS } from "../constant"
+import { COLORS } from "../../utils/constant"
 import "./styles.css"
 const HabitForm = ({ onAdd }: HabitFormPropsType) => {
   const [name, setName] = useState("")
