@@ -3,7 +3,7 @@ import type { HabitListPropsType } from "./types"
 
 const HabitList = ({ habits, logs, date, onToggle, onDelete }: HabitListPropsType) => {
   if (habits.length === 0) {
-    return <p className="text-sm text-slate-600">No habits yet. Add one below!</p>
+    return <p className="text-sm text-text-muted">No habits yet. Add one below!</p>
   }
 
   return (
@@ -22,23 +22,23 @@ const HabitList = ({ habits, logs, date, onToggle, onDelete }: HabitListPropsTyp
               id={habit.id}
               checked={logged}
               onChange={() => onToggle(habit.id)}
-              className="h-4 w-4 accent-emerald-600"
+              className="h-4 w-4 accent-color-primary"
             />
             <label
               htmlFor={habit.id}
-              className={`flex-1 cursor-pointer ${logged ? "text-slate-500 line-through" : "text-slate-800"}`}
+              className={`flex-1 cursor-pointer ${logged ? "text-text-muted line-through" : "text-text"}`}
             >
               {habit.name}
             </label>
             {streak > 0 && (
-              <span title="Current streak" className="text-xs font-semibold text-slate-500">
+              <span title="Current streak" className="text-xs font-semibold text-text-muted">
                 {streak}d
               </span>
             )}
             <button
               onClick={() => onDelete(habit.id)}
               aria-label="Delete habit"
-              className="rounded px-2 py-0.5 text-sm text-slate-500 transition hover:bg-rose-100 hover:text-rose-700"
+              className="rounded px-2 py-0.5 text-sm text-text-muted transition hover:bg-bg-error hover:text-error"
             >
               x
             </button>

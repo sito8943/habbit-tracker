@@ -14,11 +14,11 @@ const Calendar = ({ logs, selectedDate, onSelectDate }: CalendarPropsTypes) => {
   const firstDayOffset = days[0].getDay()
 
   return (
-    <section className="rounded-lg border border-slate-200 bg-white p-3 shadow-sm">
-      <h3 className="mb-2 text-lg font-semibold capitalize text-slate-800">{monthLabel}</h3>
+    <section className="rounded-lg border border-border bg-base-light p-3 shadow-sm">
+      <h3 className="mb-2 text-lg font-semibold capitalize text-text">{monthLabel}</h3>
       <div className="grid grid-cols-7 gap-1 text-center">
         {WEEKDAYS.map((d) => (
-          <div key={d} className="py-1 text-xs font-bold text-slate-500">
+          <div key={d} className="py-1 text-xs font-bold text-text-muted">
             {d}
           </div>
         ))}
@@ -40,10 +40,10 @@ const Calendar = ({ logs, selectedDate, onSelectDate }: CalendarPropsTypes) => {
               className={[
                 "rounded border px-0.5 py-1.5 text-sm font-medium transition",
                 hasLog
-                  ? "border-emerald-600 bg-emerald-500 text-white hover:bg-emerald-600"
-                  : "border-slate-300 bg-white text-slate-700 hover:bg-slate-100",
-                isSelected ? "border-blue-600 bg-blue-500 text-white hover:bg-blue-600" : "",
-                isToday ? "border-2 border-orange-500" : "",
+                  ? "border-bg-success bg-bg-success text-success hover:bg-primary"
+                  : "border-border bg-base-light text-text hover:bg-base-dark",
+                isSelected ? "border-bg-info bg-bg-info text-info hover:bg-color-primary" : "",
+                isToday ? "border-2 border-bg-warning" : "",
               ]
                 .filter(Boolean)
                 .join(" ")}
@@ -53,7 +53,7 @@ const Calendar = ({ logs, selectedDate, onSelectDate }: CalendarPropsTypes) => {
           )
         })}
       </div>
-      <p className="mt-2 text-xs text-slate-600">
+      <p className="mt-2 text-xs text-text-muted">
         Green = logged · Blue = selected · Orange border = today
       </p>
     </section>

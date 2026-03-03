@@ -40,11 +40,11 @@ const App = () => {
 
   const doneCount = habits.filter((h) => isLogged(logs, h.id, selectedDate)).length
   const navButtonClass =
-    "rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm font-medium text-slate-700 transition hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-50"
+    "rounded-md border border-border bg-[var(--color-base-light)] px-3 py-1.5 text-sm font-medium text-text transition hover:bg-[var(--color-base-dark)] disabled:cursor-not-allowed disabled:opacity-50"
 
   return (
-    <div className="mx-auto max-w-[480px] p-4">
-      <h1 className="mb-4 text-4xl">Habit Tracker</h1>
+    <main className="mx-auto mt-10 max-w-120 rounded-lg border border-border bg-base-light p-4">
+      <h1 className="mb-4 text-4xl">Focus Habit</h1>
 
       <nav className="mb-4 flex gap-2">
         <button
@@ -65,7 +65,7 @@ const App = () => {
 
       {view === "today" ? (
         <>
-          <h2 className="mb-3 text-lg font-semibold text-slate-700">
+          <h2 className="mb-3 text-lg font-semibold text-text-muted">
             {selectedDate} — {doneCount}/{habits.length} done
           </h2>
           <HabitList
@@ -87,7 +87,7 @@ const App = () => {
           }}
         />
       )}
-    </div>
+    </main>
   )
 }
 

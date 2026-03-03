@@ -20,11 +20,11 @@ const HabitForm = ({ onAdd }: HabitFormPropsType) => {
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="New habit..."
-          className="flex-1 rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 placeholder:text-slate-400 focus:border-slate-500 focus:outline-none"
+          className="flex-1 rounded-md border border-border bg-base-light px-3 py-2 text-sm text-text placeholder:text-text-muted focus:border-color-primary focus:outline-none"
         />
         <button
           type="submit"
-          className="rounded-md border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+          className="rounded-md border border-bg-primary bg-color-primary px-3 py-2 text-sm font-medium text-info transition hover:bg-hover-primary"
         >
           Add
         </button>
@@ -35,7 +35,7 @@ const HabitForm = ({ onAdd }: HabitFormPropsType) => {
             key={c}
             type="button"
             onClick={() => setColor(c)}
-            className={`h-6 w-6 cursor-pointer rounded-sm border-2 p-0 transition ${color === c ? "border-slate-900" : "border-transparent"}`}
+            className={`h-6 w-6 cursor-pointer rounded-sm border-2 p-0 transition ${color === c ? "border-text" : "border-transparent"}`}
             style={{ background: c }}
           />
         ))}

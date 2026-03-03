@@ -1,5 +1,8 @@
 {
   "ignores": [
-    "tailwindcss"
+    "tailwindcss",
+    "@fortawesome/fontawesome-svg-core",
+    "@fortawesome/free-regular-svg-icons",
+    "@fortawesome/react-fontawesome"
   ]
 }
