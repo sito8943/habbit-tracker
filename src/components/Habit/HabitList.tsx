@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react"
 import { faXmark } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { isLogged, getStreak } from "../../utils/habits"
@@ -14,11 +15,16 @@ const HabitList = ({ habits, logs, date, onToggle, onDelete }: HabitListPropsTyp
       {habits.map((habit) => {
         const logged = isLogged(logs, habit.id, date)
         const streak = getStreak(logs, habit.id)
+        const habitItemStyle = {
+          borderLeftColor: habit.color,
+          "--habit-hover-bg": `color-mix(in srgb, ${habit.color} 16%, transparent)`,
+        } as CSSProperties
+
         return (
           <li
             key={habit.id}
-            className="mb-1 flex items-center gap-2 border-l-4 py-2 pl-2.5"
-            style={{ borderLeftColor: habit.color }}
+            className="mb-1 flex items-center gap-2 rounded-md border-l-4 py-2 px-2.5 transition-colors hover:bg-(--habit-hover-bg)"
+            style={habitItemStyle}
           >
             <input
               type="checkbox"

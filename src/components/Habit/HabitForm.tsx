@@ -29,11 +29,12 @@ const HabitForm = ({ onAdd }: HabitFormPropsType) => {
       </div>
       <div className="flex gap-1.5">
         {COLORS.map((c) => (
-          <button
+          <Button
             key={c}
             type="button"
             onClick={() => setColor(c)}
-            className={`h-6 w-6 cursor-pointer rounded-sm border-2 p-0 transition ${color === c ? "border-text" : "border-transparent"}`}
+            aria-label={`Select color ${c}`}
+            className={`h-6 w-6 rounded-sm border-2 p-0 ${color === c ? "border-text" : "border-transparent"}`}
             style={{ background: c }}
           />
         ))}

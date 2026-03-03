@@ -1,6 +1,7 @@
 import { useMemo } from "react"
 import { formatDate, getMonthDays, hasAnyLog } from "../../utils/habits"
 import { WEEKDAYS } from "../../utils/constant"
+import { Button } from "../Button"
 import type { CalendarPropsTypes } from "./types"
 
 const Calendar = ({ logs, selectedDate, onSelectDate }: CalendarPropsTypes) => {
@@ -33,28 +34,24 @@ const Calendar = ({ logs, selectedDate, onSelectDate }: CalendarPropsTypes) => {
           const isToday = dateStr === todayStr
           const hasLog = hasAnyLog(logs, dateStr)
 
+          const color = isSelected ? "info" : hasLog ? "success" : isToday ? "warning" : "primary"
+          const variant = isSelected || hasLog ? "filled" : "outlined"
+
           return (
-            <button
+            <Button
               key={dateStr}
+              type="button"
               onClick={() => onSelectDate(dateStr)}
-              className={[
-                "rounded border px-0.5 py-1.5 text-sm font-medium transition",
-                hasLog
-                  ? "border-bg-success bg-bg-success text-success hover:bg-primary"
-                  : "border-border bg-base-light text-text hover:bg-base-dark",
-                isSelected ? "border-bg-info bg-bg-info text-info hover:bg-color-primary" : "",
-                isToday ? "border-2 border-bg-warning" : "",
-              ]
-                .filter(Boolean)
-                .join(" ")}
+              variant={variant}
+              color={color}
             >
               {day.getDate()}
-            </button>
+            </Button>
           )
         })}
       </div>
       <p className="mt-2 text-xs text-text-muted">
-        Green = logged · Blue = selected · Orange border = today
+        Blue = selected · Green = logged · Orange = today (if not selected/logged)
       </p>
     </section>
   )
