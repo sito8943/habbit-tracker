@@ -1,15 +1,9 @@
-import type { Habit, LogEntry } from "../utils/habits"
-import { isLogged, getStreak } from "../utils/habits"
+import { isLogged, getStreak } from "../../utils/habits"
+import type { HabitListPropsType } from "./types"
 
-type Props = {
-  habits: Habit[]
-  logs: LogEntry[]
-  date: string
-  onToggle: (habitId: string) => void
-  onDelete: (habitId: string) => void
-}
+import "./styles.css"
 
-const HabitList = ({ habits, logs, date, onToggle, onDelete }: Props) => {
+const HabitList = ({ habits, logs, date, onToggle, onDelete }: HabitListPropsType) => {
   if (habits.length === 0) {
     return <p>No habits yet. Add one below!</p>
   }

@@ -1,12 +1,8 @@
 import { useState } from "react"
-
-const COLORS = ["#e74c3c", "#3498db", "#2ecc71", "#f39c12", "#9b59b6", "#1abc9c"]
-
-type Props = {
-  onAdd: (name: string, color: string) => void
-}
-
-const HabitForm = ({ onAdd }: Props) => {
+import type { HabitFormPropsType } from "./types"
+import { COLORS } from "../constant"
+import "./styles.css"
+const HabitForm = ({ onAdd }: HabitFormPropsType) => {
   const [name, setName] = useState("")
   const [color, setColor] = useState(COLORS[0])
 

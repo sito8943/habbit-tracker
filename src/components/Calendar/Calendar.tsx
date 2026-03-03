@@ -1,16 +1,9 @@
 import { useMemo } from "react"
-import type { LogEntry } from "../utils/habits"
-import { formatDate, getMonthDays, hasAnyLog } from "../utils/habits"
-
-type Props = {
-  logs: LogEntry[]
-  selectedDate: string
-  onSelectDate: (date: string) => void
-}
-
-const WEEKDAYS = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"]
-
-const Calendar = ({ logs, selectedDate, onSelectDate }: Props) => {
+import { formatDate, getMonthDays, hasAnyLog } from "../../utils/habits"
+import { WEEKDAYS } from "../constant"
+import type { CalendarPropsTypes } from "./types"
+import "./styles.css"
+const Calendar = ({ logs, selectedDate, onSelectDate }: CalendarPropsTypes) => {
   const now = new Date()
   const year = now.getFullYear()
   const month = now.getMonth()
@@ -21,7 +14,7 @@ const Calendar = ({ logs, selectedDate, onSelectDate }: Props) => {
   const firstDayOffset = days[0].getDay()
 
   return (
-    <div>
+    <section>
       <h3 className="calendar-month-title">{monthLabel}</h3>
       <div className="calendar-grid">
         {WEEKDAYS.map((d) => (
@@ -59,7 +52,7 @@ const Calendar = ({ logs, selectedDate, onSelectDate }: Props) => {
         })}
       </div>
       <p className="calendar-legend">Green = logged · Blue = selected · Orange border = today</p>
-    </div>
+    </section>
   )
 }
 
