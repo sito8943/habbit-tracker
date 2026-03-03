@@ -1,10 +1,8 @@
 import { useState, useCallback } from "react"
 import type { Habit, LogEntry } from "./utils/habits"
 import { generateId, today, isLogged } from "./utils/habits"
-import useLocalStorage from "./hooks/useLocalStorage"
-import HabitList from "./components/HabitList"
-import HabitForm from "./components/HabitForm"
-import Calendar from "./components/Calendar"
+import { useLocalStorage } from "./hooks"
+import { Calendar, HabitForm, HabitList } from "./components"
 
 const App = () => {
   const [habits, setHabits] = useLocalStorage<Habit[]>("ht_habits", [])
