@@ -1,7 +1,12 @@
-import React from "react";
+import { LinkButton } from "../Button/";
 
 const Navbar = () => {
-  return <div></div>;
+  return (
+    <nav className="mb-4 flex gap-2" aria-label="Primary navigation">
+      <LinkButton to="/">Today</LinkButton>
+      <LinkButton to="/calendar">Calendar</LinkButton>
+    </nav>
+  );
 };
 
 export default Navbar;

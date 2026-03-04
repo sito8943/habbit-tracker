@@ -1,5 +1,5 @@
 import { buttonColorClasses, cn, iconButtonBaseClass, iconButtonVariantClasses } from "./styles";
-import type { BaseButtonProps } from "./types";
+import type { BaseButtonPropsType } from "./types";
 
 const IconButton = ({
   children,
@@ -9,7 +9,7 @@ const IconButton = ({
   type = "button",
   variant = "text",
   ...props
-}: BaseButtonProps) => {
+}: BaseButtonPropsType) => {
   return (
     <button
       {...props}

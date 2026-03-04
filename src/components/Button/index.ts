@@ -1,4 +1,4 @@
 import Button from "./Button";
 import IconButton from "./IconButton";
-
-export { Button, IconButton };
+import LinkButton from "./LinkButton";
+export { Button, IconButton, LinkButton };

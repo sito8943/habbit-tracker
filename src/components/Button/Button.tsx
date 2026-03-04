@@ -1,5 +1,5 @@
 import { buttonBaseClass, buttonColorClasses, buttonVariantClasses, cn } from "./styles";
-import type { BaseButtonProps } from "./types";
+import type { BaseButtonPropsType } from "./types";
 
 const Button = ({
   children,
@@ -9,7 +9,7 @@ const Button = ({
   type = "button",
   variant = "text",
   ...props
-}: BaseButtonProps) => {
+}: BaseButtonPropsType) => {
   return (
     <button
       {...props}
