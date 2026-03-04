@@ -1,18 +1,18 @@
-import { useState } from "react"
-import type { HabitFormPropsType } from "./types"
-import { COLORS } from "../../utils/constant"
-import { Button } from "../Button"
+import { useState } from "react";
+import type { HabitFormPropsType } from "./types";
+import { COLORS } from "../../utils/constant";
+import { Button } from "../Button";
 
 const HabitForm = ({ onAdd }: HabitFormPropsType) => {
-  const [name, setName] = useState("")
-  const [color, setColor] = useState(COLORS[0])
+  const [name, setName] = useState("");
+  const [color, setColor] = useState(COLORS[0]);
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!name.trim()) return
-    onAdd(name.trim(), color)
-    setName("")
-  }
+    e.preventDefault();
+    if (!name.trim()) return;
+    onAdd(name.trim(), color);
+    setName("");
+  };
 
   return (
     <form onSubmit={handleSubmit} className="mt-4">
@@ -40,7 +40,7 @@ const HabitForm = ({ onAdd }: HabitFormPropsType) => {
         ))}
       </div>
     </form>
-  )
-}
+  );
+};
 
-export default HabitForm
+export default HabitForm;

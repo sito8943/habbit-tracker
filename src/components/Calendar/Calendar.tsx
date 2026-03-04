@@ -1,18 +1,18 @@
-import { useMemo } from "react"
-import { formatDate, getMonthDays, hasAnyLog } from "../../utils/habits"
-import { WEEKDAYS } from "../../utils/constant"
-import { Button } from "../Button"
-import type { CalendarPropsTypes } from "./types"
+import { useMemo } from "react";
+import { formatDate, getMonthDays, hasAnyLog } from "../../utils/habits";
+import { WEEKDAYS } from "../../utils/constant";
+import { Button } from "../Button";
+import type { CalendarPropsTypes } from "./types";
 
 const Calendar = ({ logs, selectedDate, onSelectDate }: CalendarPropsTypes) => {
-  const now = new Date()
-  const year = now.getFullYear()
-  const month = now.getMonth()
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = now.getMonth();
 
-  const days = useMemo(() => getMonthDays(year, month), [year, month])
-  const todayStr = formatDate(now)
-  const monthLabel = now.toLocaleString("default", { month: "long", year: "numeric" })
-  const firstDayOffset = days[0].getDay()
+  const days = useMemo(() => getMonthDays(year, month), [year, month]);
+  const todayStr = formatDate(now);
+  const monthLabel = now.toLocaleString("default", { month: "long", year: "numeric" });
+  const firstDayOffset = days[0].getDay();
 
   return (
     <section className="rounded-lg border border-border bg-base-light p-3 shadow-sm">
@@ -29,13 +29,13 @@ const Calendar = ({ logs, selectedDate, onSelectDate }: CalendarPropsTypes) => {
         ))}
 
         {days.map((day) => {
-          const dateStr = formatDate(day)
-          const isSelected = dateStr === selectedDate
-          const isToday = dateStr === todayStr
-          const hasLog = hasAnyLog(logs, dateStr)
+          const dateStr = formatDate(day);
+          const isSelected = dateStr === selectedDate;
+          const isToday = dateStr === todayStr;
+          const hasLog = hasAnyLog(logs, dateStr);
 
-          const color = isSelected ? "info" : hasLog ? "success" : isToday ? "warning" : "primary"
-          const variant = isSelected || hasLog ? "filled" : "outlined"
+          const color = isSelected ? "info" : hasLog ? "success" : isToday ? "warning" : "primary";
+          const variant = isSelected || hasLog ? "filled" : "outlined";
 
           return (
             <Button
@@ -47,14 +47,14 @@ const Calendar = ({ logs, selectedDate, onSelectDate }: CalendarPropsTypes) => {
             >
               {day.getDate()}
             </Button>
-          )
+          );
         })}
       </div>
       <p className="mt-2 text-xs text-text-muted">
         Blue = selected · Green = logged · Orange = today (if not selected/logged)
       </p>
     </section>
-  )
-}
+  );
+};
 
-export default Calendar
+export default Calendar;

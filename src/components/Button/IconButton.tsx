@@ -1,5 +1,5 @@
-import { buttonColorClasses, cn, iconButtonBaseClass, iconButtonVariantClasses } from "./styles"
-import type { BaseButtonProps } from "./types"
+import { buttonColorClasses, cn, iconButtonBaseClass, iconButtonVariantClasses } from "./styles";
+import type { BaseButtonProps } from "./types";
 
 const IconButton = ({
   children,
@@ -24,7 +24,7 @@ const IconButton = ({
     >
       {children}
     </button>
-  )
-}
+  );
+};
 
-export default IconButton
+export default IconButton;
