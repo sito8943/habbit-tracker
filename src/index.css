@@ -1,0 +1,181 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #00997b;
+  --color-bg-primary: #006654;
+  --color-hover-primary: #1ab89a;
+  --color-secondary: #d7942e;
+  --color-bg-secondary: #9e6a1f;
+  --color-hover-secondary: #ebb04a;
+  --color-base-dark: hsl(0 0% 90%);
+  --color-base: hsl(0 0% 95%);
+  --color-base-light: hsl(0 0% 100%);
+  --color-text: #0d0d0d;
+  --color-border: hsl(0 0% 80%);
+  --color-text-muted: hsl(0 0% 30%);
+  --color-bg-info: #0070ba;
+  --color-info: #fbfbfb;
+  --color-bg-success: hsl(149.76, 68%, 36%);
+  --color-success: #fbfbfb;
+  --color-bg-warning: #ffa500;
+  --color-warning: #000000;
+  --color-bg-error: hsl(0, 50%, 51%);
+  --color-error: #fbfbfb;
+}
+
+@layer components {
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: 1px solid transparent;
+    border-radius: 0.375rem;
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.25rem;
+    cursor: pointer;
+    transition:
+      background-color 150ms ease,
+      color 150ms ease,
+      border-color 150ms ease,
+      opacity 150ms ease;
+  }
+
+  .btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  .btn--icon {
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    border-radius: 9999px;
+    flex-shrink: 0;
+  }
+
+  .btn--text {
+    border-color: transparent;
+    background-color: transparent;
+    color: var(--btn-tone);
+  }
+
+  .btn--text:hover {
+    background-color: var(--btn-soft);
+  }
+
+  .btn--filled {
+    border-color: var(--btn-surface);
+    background-color: var(--btn-surface);
+    color: var(--btn-contrast);
+  }
+
+  .btn--filled:hover {
+    border-color: var(--btn-hover);
+    background-color: var(--btn-hover-surface);
+  }
+
+  .btn--outlined {
+    border-color: var(--btn-tone);
+    background-color: transparent;
+    color: var(--btn-tone);
+  }
+
+  .btn--outlined:hover {
+    background-color: var(--btn-tone);
+    border-color: var(--btn-tone);
+    color: var(--btn-contrast);
+  }
+
+  .icon-btn--text {
+    border-color: transparent;
+    background-color: var(--btn-soft-40);
+    color: var(--color-text);
+  }
+
+  .icon-btn--text:hover {
+    background-color: var(--btn-surface);
+    color: var(--btn-icon-tone);
+  }
+
+  .btn--primary {
+    --btn-tone: var(--color-primary);
+    --btn-icon-tone: var(--color-primary);
+    --btn-surface: var(--color-bg-primary);
+    --btn-hover-surface: var(--color-hover-primary);
+    --btn-contrast: var(--color-info);
+    --btn-outline: var(--color-bg-primary);
+    --btn-soft: color-mix(in srgb, var(--color-bg-primary) 16%, transparent);
+    --btn-soft-40: color-mix(in srgb, var(--color-bg-primary) 40%, transparent);
+  }
+
+  .btn--secondary {
+    --btn-tone: var(--color-secondary);
+    --btn-icon-tone: var(--color-secondary);
+    --btn-surface: var(--color-bg-secondary);
+    --btn-hover-surface: var(--color-hover-secondary);
+    --btn-contrast: var(--color-warning);
+    --btn-outline: var(--color-bg-secondary);
+    --btn-soft: color-mix(in srgb, var(--color-bg-secondary) 16%, transparent);
+    --btn-soft-40: color-mix(in srgb, var(--color-bg-secondary) 5%, transparent);
+  }
+
+  .btn--info {
+    --btn-tone: var(--color-bg-info);
+    --btn-icon-tone: var(--color-info);
+    --btn-surface: var(--color-bg-info);
+    --btn-hover-surface: color-mix(in srgb, var(--color-bg-info) 86%, black);
+    --btn-contrast: var(--color-info);
+    --btn-outline: var(--color-bg-info);
+    --btn-soft: color-mix(in srgb, var(--color-bg-info) 16%, transparent);
+    --btn-soft-40: color-mix(in srgb, var(--color-bg-info) 5%, transparent);
+  }
+
+  .btn--success {
+    --btn-tone: var(--color-bg-success);
+    --btn-icon-tone: var(--color-success);
+    --btn-surface: var(--color-bg-success);
+    --btn-hover-surface: color-mix(in srgb, var(--color-bg-success) 86%, black);
+    --btn-contrast: var(--color-success);
+    --btn-outline: var(--color-bg-success);
+    --btn-soft: color-mix(in srgb, var(--color-bg-success) 16%, transparent);
+    --btn-soft-40: color-mix(in srgb, var(--color-bg-success) 5%, transparent);
+  }
+
+  .btn--warning {
+    --btn-tone: var(--color-bg-warning);
+    --btn-icon-tone: var(--color-warning);
+    --btn-surface: var(--color-bg-warning);
+    --btn-hover-surface: color-mix(in srgb, var(--color-bg-warning) 86%, black);
+    --btn-contrast: var(--color-warning);
+    --btn-outline: var(--color-bg-warning);
+    --btn-soft: color-mix(in srgb, var(--color-bg-warning) 16%, transparent);
+    --btn-soft-40: color-mix(in srgb, var(--color-bg-warning) 5%, transparent);
+  }
+
+  .btn--error {
+    --btn-tone: var(--color-bg-error);
+    --btn-icon-tone: var(--color-error);
+    --btn-surface: var(--color-bg-error);
+    --btn-hover-surface: color-mix(in srgb, var(--color-bg-error) 86%, black);
+    --btn-contrast: var(--color-error);
+    --btn-outline: var(--color-bg-error);
+    --btn-soft: color-mix(in srgb, var(--color-bg-error) 16%, transparent);
+    --btn-soft-40: color-mix(in srgb, var(--color-bg-error) 5%, transparent);
+  }
+}
+
+@layer base {
+  body {
+    font-family: "Roboto Variable", sans-serif;
+    font-weight: 400;
+    background-color: var(--color-base);
+    color: var(--color-text);
+  }
+
+  h1 {
+    font-family: "Alice", serif;
+  }
+}
