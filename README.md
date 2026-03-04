@@ -1,4 +1,4 @@
-# Habit Tracker
+# Focus Habit
 
 A personal habit tracking app built with **React**, **TypeScript**, and **Vite**. Track your daily progress across custom habit types — from workouts and skills to reading and mindfulness — all in one place.
 
@@ -16,10 +16,10 @@ The core idea is flexibility: instead of a fixed list of habits, you design your
 
 ### Core
 
-- **Custom habit types** — define your own habits (e.g., "Workout", "Reading", "Skill practice") with a name, icon, and color
+- **Custom habit types** — define your own habits (e.g., "Workout", "Reading", "Skill practice") with a name, icon, and color ---DONE---
 - **Custom fields per habit** — for each habit type, define the data you want to log (text, number, duration, rating, checkbox, etc.)
-- **Calendar view** — monthly calendar showing which days have logged entries and at a glance how active you were
-- **Daily log** — click any day on the calendar to view or add entries for each habit type
+- **Calendar view** — monthly calendar showing which days have logged entries and at a glance how active you were ---DONE---
+- **Daily log** — click any day on the calendar to view or add entries for each habit type ---DONE---
 - **Entry form** — dynamic form generated from the habit type's field definitions
 
 ### Habits
