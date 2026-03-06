@@ -22,18 +22,24 @@ describe("App integration", () => {
 
     render(<App />);
 
-    expect(screen.getByRole("heading", { level: 2 })).toHaveTextContent(`${initialDate} — 0/0 done`);
+    expect(screen.getByRole("heading", { level: 2 })).toHaveTextContent(
+      `${initialDate} — 0/0 done`
+    );
 
     fireEvent.change(screen.getByPlaceholderText("New habit..."), {
       target: { value: "Meditate" },
     });
     fireEvent.click(screen.getByRole("button", { name: "Add" }));
 
-    expect(screen.getByRole("heading", { level: 2 })).toHaveTextContent(`${initialDate} — 0/1 done`);
+    expect(screen.getByRole("heading", { level: 2 })).toHaveTextContent(
+      `${initialDate} — 0/1 done`
+    );
     expect(screen.getByText("Meditate")).toBeInTheDocument();
 
     fireEvent.click(screen.getByRole("checkbox", { name: "Meditate" }));
-    expect(screen.getByRole("heading", { level: 2 })).toHaveTextContent(`${initialDate} — 1/1 done`);
+    expect(screen.getByRole("heading", { level: 2 })).toHaveTextContent(
+      `${initialDate} — 1/1 done`
+    );
 
     fireEvent.click(screen.getByRole("link", { name: "Calendar" }));
     expect(screen.getByRole("heading", { level: 3 })).toBeInTheDocument();
@@ -54,7 +60,10 @@ describe("App integration", () => {
       name: string;
       color: string;
     }>;
-    const storedLogs = JSON.parse(storedLogsRaw as string) as Array<{ habitId: string; date: string }>;
+    const storedLogs = JSON.parse(storedLogsRaw as string) as Array<{
+      habitId: string;
+      date: string;
+    }>;
 
     expect(storedHabits).toHaveLength(1);
     expect(storedHabits[0].name).toBe("Meditate");
