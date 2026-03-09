@@ -4,8 +4,10 @@ import Calendar from "./views/Calendar";
 import Home from "./views/Home";
 
 const App = () => {
+  const basename = import.meta.env.BASE_URL.replace(/\/$/, "") || "/";
+
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={basename}>
       <Routes>
         <Route path="/" element={<View />}>
           <Route index element={<Home />} />
