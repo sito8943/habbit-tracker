@@ -21,14 +21,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Typecheck
-        run: npm run lint-typecheck
-      - name: ESLint
-        run: npm run lint-eslint
-      - name: Prettier
-        run: npm run lint-prettier
-      - name: depcheck
-        run: npm run lint-depcheck
+      - name: Lint
+        run: npm run lint
 
   test:
     name: Test
