@@ -6,16 +6,8 @@ import { useHabitsContext } from "../../providers";
 import { IconButton } from "../Button";
 
 const HabitList = () => {
-  const {
-    habits,
-    logs,
-    selectedDate,
-    deleteHabit,
-    toggleLog,
-    error,
-    isSyncing,
-    isDeletingHabit,
-  } = useHabitsContext();
+  const { habits, logs, selectedDate, deleteHabit, toggleLog, error, isSyncing, isDeletingHabit } =
+    useHabitsContext();
 
   const onDelete = useCallback(
     (id: number) => {

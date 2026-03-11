@@ -39,7 +39,7 @@ describe("App integration", () => {
     );
 
     fireEvent.click(screen.getByRole("link", { name: "Calendar" }));
-    expect(screen.getByRole("heading", { level: 3 })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 3, name: /\d{4}/ })).toBeInTheDocument();
 
     fireEvent.click(screen.getByRole("button", { name: "5" }));
 
@@ -47,4 +47,17 @@ describe("App integration", () => {
       `${expectedCalendarSelection} — 0/1 done`
     );
   }, 15_000);
+
+  it("navigates to auth flow from auth entry", async () => {
+    const manager = createMockSupabaseManager();
+
+    renderWithProviders(<App />, { manager });
+
+    fireEvent.click(screen.getByRole("button", { name: "Sign up / Sign in" }));
+
+    await waitFor(() =>
+      expect(screen.getByRole("heading", { level: 2, name: "Sign In" })).toBeInTheDocument()
+    );
+    expect(screen.getByRole("navigation", { name: "Auth navigation" })).toBeInTheDocument();
+  });
 });
