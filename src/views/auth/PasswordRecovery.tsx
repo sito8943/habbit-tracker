@@ -1,4 +1,5 @@
-import { Button, LinkButton } from "../../components/Button";
+import { NavLink } from "react-router";
+import { Button } from "../../components/Button";
 
 const PasswordRecovery = () => {
   return (
@@ -24,9 +25,12 @@ const PasswordRecovery = () => {
         </Button>
       </form>
 
-      <div className="mt-4 flex flex-wrap gap-2">
-        <LinkButton to="/auth/signin">Back to Sign In</LinkButton>
-      </div>
+      <p className="mt-4 text-sm text-text-muted">
+        Remembered it?{" "}
+        <NavLink to="/auth/signin" className="font-medium text-primary hover:underline">
+          Back to Sign In
+        </NavLink>
+      </p>
     </section>
   );
 };

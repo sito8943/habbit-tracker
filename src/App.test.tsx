@@ -53,11 +53,11 @@ describe("App integration", () => {
 
     renderWithProviders(<App />, { manager });
 
-    fireEvent.click(screen.getByRole("link", { name: "Sign In / Sign Up" }));
+    fireEvent.click(screen.getByRole("link", { name: "Sign In" }));
 
     await waitFor(() =>
       expect(screen.getByRole("heading", { level: 2, name: "Sign In" })).toBeInTheDocument()
     );
-    expect(screen.getByRole("navigation", { name: "Auth navigation" })).toBeInTheDocument();
+    expect(screen.getByText(/Not registered yet\?/i)).toBeInTheDocument();
   });
 });

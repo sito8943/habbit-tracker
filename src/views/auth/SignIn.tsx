@@ -1,8 +1,9 @@
-import { Button, LinkButton } from "../../components/Button";
+import { NavLink } from "react-router";
+import { Button } from "../../components/Button";
 
 const SignIn = () => {
   return (
-    <section className="rounded-lg border border-border bg-base-light/70 p-4 backdrop-blur-md">
+    <section className="">
       <h2 className="mb-2 text-2xl font-semibold text-text">Sign In</h2>
       <p className="mb-4 text-sm text-text-muted">Sign in to sync your saved habits.</p>
 
@@ -32,10 +33,18 @@ const SignIn = () => {
         </Button>
       </form>
 
-      <div className="mt-4 flex flex-wrap gap-2">
-        <LinkButton to="/auth/signup">Create account</LinkButton>
-        <LinkButton to="/auth/password-recovery">I forgot my password</LinkButton>
-      </div>
+      <p className="mt-4 text-sm text-text-muted">
+        Not registered yet?{" "}
+        <NavLink to="/auth/signup" className="font-medium text-primary hover:underline">
+          Create account
+        </NavLink>
+      </p>
+      <p className="mt-1 text-sm text-text-muted">
+        Forgot password?{" "}
+        <NavLink to="/auth/password-recovery" className="font-medium text-primary hover:underline">
+          Reset it
+        </NavLink>
+      </p>
     </section>
   );
 };

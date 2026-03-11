@@ -1,5 +1,4 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router";
-import AuthLayout from "./layouts/AuthLayout";
 import View from "./layouts/View";
 import Calendar from "./views/Calendar";
 import Home from "./views/Home";
@@ -16,13 +15,11 @@ const App = () => {
         <Route path="/" element={<View />}>
           <Route index element={<Home />} />
           <Route path="calendar" element={<Calendar />} />
-        </Route>
-        <Route path="auth" element={<AuthLayout />}>
-          <Route index element={<SignIn />} />
           <Route path="signin" element={<SignIn />} />
           <Route path="signup" element={<SignUp />} />
           <Route path="password-recovery" element={<PasswordRecovery />} />
         </Route>
+
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>

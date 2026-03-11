@@ -30,7 +30,7 @@ const AuthPromptModal = ({ isOpen, onClose }: AuthPromptModalProps) => {
         </p>
 
         <div className="mt-4 flex flex-wrap gap-2">
-          <LinkButton to="/auth">Sign In / Sign Up</LinkButton>
+          <LinkButton to="/auth">Login</LinkButton>
           <Button variant="text" onClick={onClose}>
             Maybe later
           </Button>

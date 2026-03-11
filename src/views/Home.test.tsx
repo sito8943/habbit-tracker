@@ -93,6 +93,6 @@ describe("Home view", () => {
     expect(
       screen.getByText("Sign up so you can save and reopen your habits when you come back.")
     ).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "Sign In / Sign Up" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Login" })).toBeInTheDocument();
   });
 });
