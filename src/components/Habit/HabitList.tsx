@@ -5,22 +5,28 @@ import { getStreak, isLogged } from "../../utils/habits";
 import { useHabitsContext } from "../../providers";
 import { IconButton } from "../Button";
 
-const HabitList = () => {
+type HabitListProps = {
+  onInteraction?: () => void;
+};
+
+const HabitList = ({ onInteraction }: HabitListProps) => {
   const { habits, logs, selectedDate, deleteHabit, toggleLog, error, isSyncing, isDeletingHabit } =
     useHabitsContext();
 
   const onDelete = useCallback(
     (id: number) => {
+      onInteraction?.();
       deleteHabit(id);
     },
-    [deleteHabit]
+    [deleteHabit, onInteraction]
   );
 
   const onToggle = useCallback(
     (habitId: number) => {
+      onInteraction?.();
       toggleLog(habitId);
     },
-    [toggleLog]
+    [onInteraction, toggleLog]
   );
 
   if (habits.length === 0) {

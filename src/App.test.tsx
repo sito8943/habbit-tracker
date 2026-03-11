@@ -48,12 +48,12 @@ describe("App integration", () => {
     );
   }, 15_000);
 
-  it("navigates to auth flow from auth entry", async () => {
+  it("navigates to auth flow from navbar", async () => {
     const manager = createMockSupabaseManager();
 
     renderWithProviders(<App />, { manager });
 
-    fireEvent.click(screen.getByRole("button", { name: "Sign up / Sign in" }));
+    fireEvent.click(screen.getByRole("link", { name: "Sign In / Sign Up" }));
 
     await waitFor(() =>
       expect(screen.getByRole("heading", { level: 2, name: "Sign In" })).toBeInTheDocument()

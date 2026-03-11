@@ -3,7 +3,11 @@ import { COLORS } from "../../utils/constant";
 import { useHabitsContext } from "../../providers";
 import { Button } from "../Button";
 
-const HabitForm = () => {
+type HabitFormProps = {
+  onInteraction?: () => void;
+};
+
+const HabitForm = ({ onInteraction }: HabitFormProps) => {
   const [name, setName] = useState("");
   const [color, setColor] = useState(COLORS[0]);
   const { addHabit, error, isCreatingHabit } = useHabitsContext();
@@ -13,6 +17,7 @@ const HabitForm = () => {
     if (!name.trim()) return;
 
     addHabit(name.trim(), color);
+    onInteraction?.();
     setName("");
   };
 

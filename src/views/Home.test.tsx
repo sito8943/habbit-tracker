@@ -32,12 +32,10 @@ describe("Home view", () => {
       { manager }
     );
 
-    await waitFor(() =>
-      expect(screen.getByRole("heading", { level: 2 })).toHaveTextContent(
-        `${selectedDate} — 1/2 done`
-      )
+    await waitFor(() => expect(screen.getByText("Read")).toBeInTheDocument());
+    expect(screen.getByRole("heading", { level: 2 })).toHaveTextContent(
+      `${selectedDate} — 1/2 done`
     );
-    expect(screen.getByText("Read")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Add" })).toBeInTheDocument();
   });
 
@@ -69,5 +67,30 @@ describe("Home view", () => {
     await waitFor(() => {
       expect(createHabitSpy).toHaveBeenCalledWith({ name: "Read docs", color: COLORS[0] });
     });
+  });
+
+  it("shows auth prompt tooltip on first habits/logs interaction", async () => {
+    const manager = createMockSupabaseManager({
+      habits: [{ id: 1, name: "Read", color: "#3498db" }],
+    });
+
+    renderWithProviders(
+      <MemoryRouter initialEntries={["/"]}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </MemoryRouter>,
+      { manager }
+    );
+
+    await waitFor(() => expect(screen.getByRole("checkbox", { name: "Read" })).toBeInTheDocument());
+
+    fireEvent.click(screen.getByRole("checkbox", { name: "Read" }));
+
+    expect(screen.getByRole("heading", { level: 3, name: "Save your progress" })).toBeInTheDocument();
+    expect(
+      screen.getByText("Sign up so you can save and reopen your habits when you come back.")
+    ).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Sign In / Sign Up" })).toBeInTheDocument();
   });
 });

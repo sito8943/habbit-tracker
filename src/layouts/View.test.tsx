@@ -26,7 +26,7 @@ describe("View layout", () => {
     expect(screen.getByRole("navigation", { name: "Primary navigation" })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Today" })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Calendar" })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Sign up / Sign in" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Sign In / Sign Up" })).toBeInTheDocument();
   });
 
   it("renders nested route content", () => {

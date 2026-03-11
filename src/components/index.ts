@@ -1,5 +1,5 @@
-import { AuthEntry } from "./AuthEntry";
+import { AuthPromptModal } from "./AuthPromptModal";
 import { Button, IconButton } from "./Button";
 import { Calendar } from "./Calendar";
 import { HabitForm, HabitList } from "./Habit";
-export { AuthEntry, Button, IconButton, Calendar, HabitForm, HabitList };
+export { AuthPromptModal, Button, IconButton, Calendar, HabitForm, HabitList };
