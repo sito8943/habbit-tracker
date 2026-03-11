@@ -87,7 +87,9 @@ describe("Home view", () => {
 
     fireEvent.click(screen.getByRole("checkbox", { name: "Read" }));
 
-    expect(screen.getByRole("heading", { level: 3, name: "Save your progress" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { level: 3, name: "Save your progress" })
+    ).toBeInTheDocument();
     expect(
       screen.getByText("Sign up so you can save and reopen your habits when you come back.")
     ).toBeInTheDocument();
