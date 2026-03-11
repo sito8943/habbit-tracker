@@ -1,20 +1,51 @@
-import type { CSSProperties } from "react";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { useCallback, type CSSProperties } from "react";
+import { faSpinner, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { isLogged, getStreak } from "../../utils/habits";
+import { getStreak, isLogged } from "../../utils/habits";
+import { useHabitsContext } from "../../providers";
 import { IconButton } from "../Button";
-import type { HabitListPropsType } from "./types";
 
-const HabitList = ({ habits, logs, date, onToggle, onDelete }: HabitListPropsType) => {
+const HabitList = () => {
+  const {
+    habits,
+    logs,
+    selectedDate,
+    deleteHabit,
+    toggleLog,
+    error,
+    isSyncing,
+    isDeletingHabit,
+  } = useHabitsContext();
+
+  const onDelete = useCallback(
+    (id: number) => {
+      deleteHabit(id);
+    },
+    [deleteHabit]
+  );
+
+  const onToggle = useCallback(
+    (habitId: number) => {
+      toggleLog(habitId);
+    },
+    [toggleLog]
+  );
+
   if (habits.length === 0) {
     return <p className="text-sm text-text-muted">No habits yet. Add one below!</p>;
   }
 
   return (
     <ul className="list-none p-0">
+      {error && (
+        <p role="alert" className="mb-3 rounded border border-error px-2 py-1 text-sm text-error">
+          {error.message}
+        </p>
+      )}
       {habits.map((habit) => {
-        const logged = isLogged(logs, habit.id, date);
+        const logged = isLogged(logs, habit.id, selectedDate);
         const streak = getStreak(logs, habit.id);
+        const inputId = `habit-${habit.id}`;
         const habitItemStyle = {
           borderLeftColor: habit.color,
           "--habit-hover-bg": `color-mix(in srgb, ${habit.color} 16%, transparent)`,
@@ -27,14 +58,15 @@ const HabitList = ({ habits, logs, date, onToggle, onDelete }: HabitListPropsTyp
             style={habitItemStyle}
           >
             <input
+              disabled={isSyncing}
               type="checkbox"
-              id={habit.id}
+              id={inputId}
               checked={logged}
               onChange={() => onToggle(habit.id)}
               className="h-4 w-4 accent-primary"
             />
             <label
-              htmlFor={habit.id}
+              htmlFor={inputId}
               className={`flex-1 cursor-pointer ${logged ? "text-text-muted line-through" : "text-text"}`}
             >
               {habit.name}
@@ -46,11 +78,12 @@ const HabitList = ({ habits, logs, date, onToggle, onDelete }: HabitListPropsTyp
             )}
             <IconButton
               onClick={() => onDelete(habit.id)}
+              disabled={isSyncing}
               aria-label="Delete habit"
               color="error"
               variant="text"
             >
-              <FontAwesomeIcon icon={faXmark} />
+              <FontAwesomeIcon icon={isDeletingHabit ? faSpinner : faXmark} />
             </IconButton>
           </li>
         );

@@ -1,9 +1,9 @@
-import { useNavigate, useOutletContext } from "react-router";
+import { useNavigate } from "react-router";
 import { Calendar as CalendarView } from "../components";
-import type { ViewContextType } from "../layouts/View";
+import { useHabitsContext } from "../providers";
 
 const Calendar = () => {
-  const { logs, selectedDate, selectDate } = useOutletContext<ViewContextType>();
+  const { logs, selectedDate, selectDate } = useHabitsContext();
   const navigate = useNavigate();
 
   return (

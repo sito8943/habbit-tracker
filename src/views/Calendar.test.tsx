@@ -1,53 +1,57 @@
-import { fireEvent, render, screen } from "@testing-library/react";
-import { MemoryRouter, Outlet, Route, Routes } from "react-router";
-import type { ViewContextType } from "../layouts/View";
+import { fireEvent, screen, waitFor } from "@testing-library/react";
+import { afterEach, describe, expect, it, vi } from "vitest";
+import { MemoryRouter, Route, Routes } from "react-router";
+import Home from "./Home";
 import Calendar from "./Calendar";
-
-type ContextLayoutProps = {
-  context: ViewContextType;
-};
-
-const ContextLayout = ({ context }: ContextLayoutProps) => <Outlet context={context} />;
-
-const buildContext = (overrides: Partial<ViewContextType> = {}): ViewContextType => ({
-  habits: [],
-  logs: [],
-  selectedDate: "2026-03-06",
-  addHabit: vi.fn(),
-  deleteHabit: vi.fn(),
-  toggleLog: vi.fn(),
-  selectDate: vi.fn(),
-  ...overrides,
-});
-
-const renderCalendar = (context: ViewContextType) =>
-  render(
-    <MemoryRouter initialEntries={["/calendar"]}>
-      <Routes>
-        <Route path="/" element={<ContextLayout context={context} />}>
-          <Route index element={<p>home-route</p>} />
-          <Route path="calendar" element={<Calendar />} />
-        </Route>
-      </Routes>
-    </MemoryRouter>
-  );
+import { createMockSupabaseManager } from "../test/mockSupabaseManager";
+import { renderWithProviders } from "../test/renderWithProviders";
 
 describe("Calendar view", () => {
-  it("renders without crashing with outlet context", () => {
-    renderCalendar(buildContext());
+  afterEach(() => {
+    vi.useRealTimers();
+  });
 
-    expect(screen.getByRole("heading", { level: 3 })).toBeInTheDocument();
+  it("renders without crashing", async () => {
+    const manager = createMockSupabaseManager();
+
+    renderWithProviders(
+      <MemoryRouter initialEntries={["/calendar"]}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/calendar" element={<Calendar />} />
+        </Routes>
+      </MemoryRouter>,
+      { manager }
+    );
+
+    await waitFor(() => expect(screen.getByRole("heading", { level: 3 })).toBeInTheDocument());
     expect(screen.getByText("Su")).toBeInTheDocument();
   });
 
-  it("calls selectDate and navigates to home when a day is selected", () => {
-    const selectDate = vi.fn();
-    renderCalendar(buildContext({ selectDate }));
+  it("selects a date and navigates back to home", async () => {
+    const now = new Date();
+    const expectedDate = new Date(now.getFullYear(), now.getMonth(), 5).toISOString().slice(0, 10);
 
-    fireEvent.click(screen.getAllByRole("button")[0]);
+    const manager = createMockSupabaseManager({
+      habits: [{ id: 1, name: "Read", color: "#3498db" }],
+    });
 
-    expect(selectDate).toHaveBeenCalledTimes(1);
-    expect(selectDate.mock.calls[0][0]).toMatch(/^\d{4}-\d{2}-\d{2}$/);
-    expect(screen.getByText("home-route")).toBeInTheDocument();
+    renderWithProviders(
+      <MemoryRouter initialEntries={["/calendar"]}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/calendar" element={<Calendar />} />
+        </Routes>
+      </MemoryRouter>,
+      { manager }
+    );
+
+    fireEvent.click(screen.getByRole("button", { name: "5" }));
+
+    await waitFor(() =>
+      expect(screen.getByRole("heading", { level: 2 })).toHaveTextContent(
+        `${expectedDate} — 0/1 done`
+      )
+    );
   });
 });
