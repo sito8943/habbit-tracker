@@ -19,10 +19,10 @@ export const createMockSupabaseManager = (seed: SeedData = {}): SupabaseManagerL
 
   return {
     habitsClient: {
-      async listHabits() {
+      async listHabits(_code) {
         return habits.filter((habit) => !habit.deletedAt).map(cloneHabit);
       },
-      async createHabit(input) {
+      async createHabit(input, _code) {
         const habit: Habit = {
           id: habitIdSequence++,
           name: input.name,
@@ -35,7 +35,7 @@ export const createMockSupabaseManager = (seed: SeedData = {}): SupabaseManagerL
         habits = [...habits, habit];
         return cloneHabit(habit);
       },
-      async softDeleteHabit(id) {
+      async softDeleteHabit(id, _code) {
         const deletedAt = now();
         habits = habits.map((habit) =>
           habit.id === id && !habit.deletedAt
@@ -49,15 +49,15 @@ export const createMockSupabaseManager = (seed: SeedData = {}): SupabaseManagerL
       },
     },
     logsClient: {
-      async listLogs() {
+      async listLogs(_code) {
         return logs.filter((log) => !log.deletedAt).map(cloneLog);
       },
-      async listLogsByRange(from, to) {
+      async listLogsByRange(from, to, _code) {
         return logs
           .filter((log) => !log.deletedAt && log.date >= from && log.date <= to)
           .map(cloneLog);
       },
-      async toggleLog(input) {
+      async toggleLog(input, _code) {
         const existingLog = logs.find(
           (log) => !log.deletedAt && log.habitId === input.habitId && log.date === input.date
         );
@@ -88,7 +88,7 @@ export const createMockSupabaseManager = (seed: SeedData = {}): SupabaseManagerL
         logs = [...logs, inserted];
         return cloneLog(inserted);
       },
-      async softDeleteLogsByHabit(habitId) {
+      async softDeleteLogsByHabit(habitId, _code) {
         const deletedAt = now();
         logs = logs.map((log) =>
           log.habitId === habitId && !log.deletedAt

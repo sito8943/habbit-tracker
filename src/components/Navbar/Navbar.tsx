@@ -15,12 +15,6 @@ const Navbar = () => {
       <NavLink to="/calendar" className={textLinkClass}>
         Calendar
       </NavLink>
-      <NavLink to="/signin" className={textLinkClass}>
-        Sign In
-      </NavLink>
-      <NavLink to="/signup" className="btn btn--primary btn--filled">
-        Sign Up
-      </NavLink>
     </nav>
   );
 };

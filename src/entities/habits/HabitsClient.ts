@@ -21,10 +21,11 @@ export class HabitsClient implements HabitsClientContract {
     this.supabase = supabase;
   }
 
-  async listHabits(): Promise<Habit[]> {
+  async listHabits(code: string): Promise<Habit[]> {
     const { data, error } = await this.supabase
       .from("habits")
       .select("*")
+      .eq("code", code)
       .is("deleted_at", null)
       .order("created_at", { ascending: true });
 
@@ -35,12 +36,13 @@ export class HabitsClient implements HabitsClientContract {
     return ((data as HabitRow[] | null) ?? []).map(mapHabitRow);
   }
 
-  async createHabit(input: CreateHabitInput): Promise<Habit> {
+  async createHabit(input: CreateHabitInput, code: string): Promise<Habit> {
     const { data, error } = await this.supabase
       .from("habits")
       .insert({
         name: input.name,
         color: input.color,
+        code,
       })
       .select("*")
       .single();
@@ -52,11 +54,12 @@ export class HabitsClient implements HabitsClientContract {
     return mapHabitRow(data as HabitRow);
   }
 
-  async softDeleteHabit(id: number): Promise<void> {
+  async softDeleteHabit(id: number, code: string): Promise<void> {
     const { error } = await this.supabase
       .from("habits")
       .update({ deleted_at: new Date().toISOString() })
       .eq("id", id)
+      .eq("code", code)
       .is("deleted_at", null);
 
     if (error) {

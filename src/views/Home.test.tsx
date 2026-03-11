@@ -65,11 +65,11 @@ describe("Home view", () => {
     fireEvent.click(screen.getByRole("button", { name: "Add" }));
 
     await waitFor(() => {
-      expect(createHabitSpy).toHaveBeenCalledWith({ name: "Read docs", color: COLORS[0] });
+      expect(createHabitSpy).toHaveBeenCalledWith({ name: "Read docs", color: COLORS[0] }, expect.any(String));
     });
   });
 
-  it("shows auth prompt tooltip on first habits/logs interaction", async () => {
+  it("shows recovery code prompt only after clicking the floating action button", async () => {
     const manager = createMockSupabaseManager({
       habits: [{ id: 1, name: "Read", color: "#3498db" }],
     });
@@ -85,14 +85,29 @@ describe("Home view", () => {
 
     await waitFor(() => expect(screen.getByRole("checkbox", { name: "Read" })).toBeInTheDocument());
 
-    fireEvent.click(screen.getByRole("checkbox", { name: "Read" }));
+    const openRecoveryCodeButton = screen.getByRole("button", { name: "Open recovery code" });
+    expect(openRecoveryCodeButton).not.toHaveClass("fab-buzz-once");
 
+    fireEvent.click(screen.getByRole("checkbox", { name: "Read" }));
+    expect(openRecoveryCodeButton).toHaveClass("fab-buzz-once");
+
+    await waitFor(() => expect(openRecoveryCodeButton).not.toHaveClass("fab-buzz-once"), {
+      timeout: 2000,
+    });
+
+    expect(screen.queryByRole("heading", { level: 3, name: "Recovery code" })).not.toBeInTheDocument();
+
+    fireEvent.click(openRecoveryCodeButton);
+
+    expect(screen.getByRole("heading", { level: 3, name: "Recovery code" })).toBeInTheDocument();
     expect(
-      screen.getByRole("heading", { level: 3, name: "Save your progress" })
+      screen.getByText("Save this code. Use it on another device to recover and sync your habits.")
     ).toBeInTheDocument();
-    expect(
-      screen.getByText("Sign up so you can save and reopen your habits when you come back.")
-    ).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "Login" })).toBeInTheDocument();
+    expect(screen.queryByPlaceholderText("AB12")).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "Already have Code" }));
+    expect(screen.getByPlaceholderText("AB12")).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole("checkbox", { name: "Read" }));
+    expect(openRecoveryCodeButton).not.toHaveClass("fab-buzz-once");
   });
 });

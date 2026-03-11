@@ -6,8 +6,8 @@ export type ToggleLogInput = {
 };
 
 export interface LogsClientContract {
-  listLogs: () => Promise<LogEntry[]>;
-  listLogsByRange: (from: string, to: string) => Promise<LogEntry[]>;
-  toggleLog: (input: ToggleLogInput) => Promise<LogEntry | null>;
-  softDeleteLogsByHabit: (habitId: number) => Promise<void>;
+  listLogs: (code: string) => Promise<LogEntry[]>;
+  listLogsByRange: (from: string, to: string, code: string) => Promise<LogEntry[]>;
+  toggleLog: (input: ToggleLogInput, code: string) => Promise<LogEntry | null>;
+  softDeleteLogsByHabit: (habitId: number, code: string) => Promise<void>;
 }

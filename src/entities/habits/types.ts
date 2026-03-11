@@ -6,7 +6,7 @@ export type CreateHabitInput = {
 };
 
 export interface HabitsClientContract {
-  listHabits: () => Promise<Habit[]>;
-  createHabit: (input: CreateHabitInput) => Promise<Habit>;
-  softDeleteHabit: (id: number) => Promise<void>;
+  listHabits: (code: string) => Promise<Habit[]>;
+  createHabit: (input: CreateHabitInput, code: string) => Promise<Habit>;
+  softDeleteHabit: (id: number, code: string) => Promise<void>;
 }

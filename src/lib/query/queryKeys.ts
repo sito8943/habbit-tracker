@@ -1,5 +1,6 @@
 export const queryKeys = {
-  habits: ["habits"] as const,
-  logs: ["logs"] as const,
-  logsByRange: (from: string, to: string) => ["logs", "range", from, to] as const,
+  habits: (code: string) => ["habits", code] as const,
+  logs: (code: string) => ["logs", code] as const,
+  logsByRange: (code: string, from: string, to: string) =>
+    ["logs", code, "range", from, to] as const,
 };

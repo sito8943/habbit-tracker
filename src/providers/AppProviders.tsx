@@ -4,6 +4,7 @@ import { createQueryClient } from "../lib/query/queryClient";
 import type { SupabaseManagerLike } from "../lib/supabase/manager.types";
 import { HabitsProvider } from "./Habits";
 import { SupabaseProvider } from "./Supabase/SupabaseProvider";
+import { SyncCodeProvider } from "./SyncCode";
 
 type AppProvidersProps = {
   children: ReactNode;
@@ -17,7 +18,9 @@ export const AppProviders = ({ children, manager, queryClient }: AppProvidersPro
   return (
     <QueryClientProvider client={resolvedQueryClient}>
       <SupabaseProvider manager={manager}>
-        <HabitsProvider>{children}</HabitsProvider>
+        <SyncCodeProvider>
+          <HabitsProvider>{children}</HabitsProvider>
+        </SyncCodeProvider>
       </SupabaseProvider>
     </QueryClientProvider>
   );

@@ -12,8 +12,5 @@ describe("Navbar", () => {
 
     expect(screen.getByRole("link", { name: "Today" })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Calendar" })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "Sign In" })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "Sign Up" })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "Sign Up" })).toHaveClass("btn--filled");
   });
 });

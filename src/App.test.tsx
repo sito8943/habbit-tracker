@@ -48,16 +48,30 @@ describe("App integration", () => {
     );
   }, 15_000);
 
-  it("navigates to auth flow from navbar", async () => {
+  it("opens recovery code modal from the floating action button", async () => {
     const manager = createMockSupabaseManager();
 
     renderWithProviders(<App />, { manager });
 
-    fireEvent.click(screen.getByRole("link", { name: "Sign In" }));
+    const openRecoveryCodeButton = await screen.findByRole("button", { name: "Open recovery code" });
+    expect(openRecoveryCodeButton).not.toHaveClass("fab-buzz-once");
+
+    fireEvent.change(screen.getByPlaceholderText("New habit..."), {
+      target: { value: "Read book" },
+    });
+    fireEvent.click(screen.getByRole("button", { name: "Add" }));
+
+    await waitFor(() => expect(openRecoveryCodeButton).toHaveClass("fab-buzz-once"));
+    fireEvent.click(openRecoveryCodeButton);
 
     await waitFor(() =>
-      expect(screen.getByRole("heading", { level: 2, name: "Sign In" })).toBeInTheDocument()
+      expect(screen.getByRole("heading", { level: 3, name: "Recovery code" })).toBeInTheDocument()
     );
-    expect(screen.getByText(/Not registered yet\?/i)).toBeInTheDocument();
+    expect(
+      screen.getByText("Save this code. Use it on another device to recover and sync your habits.")
+    ).toBeInTheDocument();
+    expect(screen.queryByPlaceholderText("AB12")).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "Already have Code" }));
+    expect(screen.getByPlaceholderText("AB12")).toBeInTheDocument();
   });
 });

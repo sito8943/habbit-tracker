@@ -165,6 +165,33 @@
     --btn-soft: color-mix(in srgb, var(--color-bg-error) 16%, transparent);
     --btn-soft-40: color-mix(in srgb, var(--color-bg-error) 5%, transparent);
   }
+
+  .fab-buzz-once {
+    animation: fab-buzz 1.2s ease-in-out 1;
+    transform-origin: center;
+  }
+}
+
+@keyframes fab-buzz {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+  15% {
+    transform: translateY(-2px) rotate(-8deg) scale(1.03);
+  }
+  30% {
+    transform: translateY(-1px) rotate(8deg) scale(1.03);
+  }
+  45% {
+    transform: translateY(-3px) rotate(-6deg) scale(1.04);
+  }
+  60% {
+    transform: translateY(-1px) rotate(6deg) scale(1.03);
+  }
+  75% {
+    transform: translateY(-2px) rotate(-4deg) scale(1.02);
+  }
 }
 
 @layer base {

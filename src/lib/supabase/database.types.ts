@@ -6,7 +6,7 @@ export type Database = {
       habits: {
         Row: {
           id: number;
-          user_id: string | null;
+          code: string;
           name: string;
           color: string;
           created_at: string;
@@ -15,7 +15,7 @@ export type Database = {
         };
         Insert: {
           id?: never;
-          user_id?: string | null;
+          code: string;
           name: string;
           color: string;
           created_at?: string;
@@ -24,7 +24,7 @@ export type Database = {
         };
         Update: {
           id?: never;
-          user_id?: string | null;
+          code?: string;
           name?: string;
           color?: string;
           created_at?: string;
@@ -36,7 +36,6 @@ export type Database = {
       habit_logs: {
         Row: {
           id: number;
-          user_id: string | null;
           habit_id: number;
           log_date: string;
           created_at: string;
@@ -45,7 +44,6 @@ export type Database = {
         };
         Insert: {
           id?: never;
-          user_id?: string | null;
           habit_id: number;
           log_date: string;
           created_at?: string;
@@ -54,7 +52,6 @@ export type Database = {
         };
         Update: {
           id?: never;
-          user_id?: string | null;
           habit_id?: number;
           log_date?: string;
           created_at?: string;

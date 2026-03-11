@@ -21,10 +21,11 @@ export class LogsClient implements LogsClientContract {
     this.supabase = supabase;
   }
 
-  async listLogs(): Promise<LogEntry[]> {
+  async listLogs(code: string): Promise<LogEntry[]> {
     const { data, error } = await this.supabase
       .from("habit_logs")
-      .select("*")
+      .select("*, habits!inner(code)")
+      .eq("habits.code", code)
       .is("deleted_at", null)
       .order("log_date", { ascending: false });
 
@@ -35,10 +36,11 @@ export class LogsClient implements LogsClientContract {
     return ((data as HabitLogRow[] | null) ?? []).map(mapLogRow);
   }
 
-  async listLogsByRange(from: string, to: string): Promise<LogEntry[]> {
+  async listLogsByRange(from: string, to: string, code: string): Promise<LogEntry[]> {
     const { data, error } = await this.supabase
       .from("habit_logs")
-      .select("*")
+      .select("*, habits!inner(code)")
+      .eq("habits.code", code)
       .is("deleted_at", null)
       .gte("log_date", from)
       .lte("log_date", to)
@@ -51,12 +53,29 @@ export class LogsClient implements LogsClientContract {
     return ((data as HabitLogRow[] | null) ?? []).map(mapLogRow);
   }
 
-  async toggleLog(input: ToggleLogInput): Promise<LogEntry | null> {
+  async toggleLog(input: ToggleLogInput, code: string): Promise<LogEntry | null> {
+    const { data: matchingHabit, error: habitError } = await this.supabase
+      .from("habits")
+      .select("id")
+      .eq("id", input.habitId)
+      .eq("code", code)
+      .is("deleted_at", null)
+      .maybeSingle();
+
+    if (habitError) {
+      throw new Error(`Failed to validate habit code: ${habitError.message}`);
+    }
+
+    if (!matchingHabit) {
+      throw new Error("This habit does not belong to the active recovery code.");
+    }
+
     const { data: existing, error: findError } = await this.supabase
       .from("habit_logs")
-      .select("*")
+      .select("*, habits!inner(code)")
       .eq("habit_id", input.habitId)
       .eq("log_date", input.date)
+      .eq("habits.code", code)
       .is("deleted_at", null)
       .maybeSingle();
 
@@ -64,7 +83,7 @@ export class LogsClient implements LogsClientContract {
       throw new Error(`Failed to toggle log: ${findError.message}`);
     }
 
-    const existingLog = existing as HabitLogRow | null;
+    const existingLog = existing as (HabitLogRow & { habits: { code: string } }) | null;
 
     if (existingLog) {
       const { error: deleteError } = await this.supabase
@@ -96,7 +115,23 @@ export class LogsClient implements LogsClientContract {
     return mapLogRow(inserted as HabitLogRow);
   }
 
-  async softDeleteLogsByHabit(habitId: number): Promise<void> {
+  async softDeleteLogsByHabit(habitId: number, code: string): Promise<void> {
+    const { data: matchingHabit, error: habitError } = await this.supabase
+      .from("habits")
+      .select("id")
+      .eq("id", habitId)
+      .eq("code", code)
+      .is("deleted_at", null)
+      .maybeSingle();
+
+    if (habitError) {
+      throw new Error(`Failed to validate habit before deleting logs: ${habitError.message}`);
+    }
+
+    if (!matchingHabit) {
+      return;
+    }
+
     const { error } = await this.supabase
       .from("habit_logs")
       .update({ deleted_at: new Date().toISOString() })

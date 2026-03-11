@@ -1,20 +1,11 @@
-import { useNavigate } from "react-router";
 import { Calendar as CalendarView } from "../components";
-import { useHabitsContext } from "../providers";
+import { useCalendarView } from "../hooks";
 
 const Calendar = () => {
-  const { logs, selectedDate, selectDate } = useHabitsContext();
-  const navigate = useNavigate();
+  const { logs, selectedDate, onSelectDate } = useCalendarView();
 
   return (
-    <CalendarView
-      logs={logs}
-      selectedDate={selectedDate}
-      onSelectDate={(date) => {
-        selectDate(date);
-        navigate("/");
-      }}
-    />
+    <CalendarView logs={logs} selectedDate={selectedDate} onSelectDate={onSelectDate} />
   );
 };
 

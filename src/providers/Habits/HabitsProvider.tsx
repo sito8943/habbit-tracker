@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
 import {
   useCreateHabitMutation,
   useDeleteHabitMutation,
@@ -6,6 +6,10 @@ import {
   useLogsQuery,
   useToggleLogMutation,
 } from "../../entities";
+import { useLocalStorage } from "../../hooks";
+import type { Habit, LogEntry } from "../../utils/habits";
+import { getHabitLogsCacheKey, getHabitsCacheKey } from "../../utils/cache";
+import { useSyncCode } from "../SyncCode";
 import { today } from "../../utils/habits";
 import { HabitsContext, type HabitsContextType } from "./useHabitsContext";
 
@@ -37,9 +41,12 @@ const mergeErrors = (...candidates: unknown[]): Error | null => {
 };
 
 export const HabitsProvider = ({ children }: HabitsProviderProps) => {
+  const { code } = useSyncCode();
   const [selectedDate, setSelectedDate] = useState(() => today());
-  const habitsQuery = useHabitsQuery();
-  const logsQuery = useLogsQuery();
+  const [cachedHabits, setCachedHabits] = useLocalStorage<Habit[]>(getHabitsCacheKey(code), []);
+  const [cachedLogs, setCachedLogs] = useLocalStorage<LogEntry[]>(getHabitLogsCacheKey(code), []);
+  const habitsQuery = useHabitsQuery(cachedHabits);
+  const logsQuery = useLogsQuery(cachedLogs);
   const {
     mutate: createHabit,
     error: createHabitError,
@@ -55,6 +62,18 @@ export const HabitsProvider = ({ children }: HabitsProviderProps) => {
     error: toggleLogError,
     isPending: isTogglingLog,
   } = useToggleLogMutation();
+
+  useEffect(() => {
+    if (habitsQuery.data) {
+      setCachedHabits(habitsQuery.data);
+    }
+  }, [habitsQuery.data, setCachedHabits]);
+
+  useEffect(() => {
+    if (logsQuery.data) {
+      setCachedLogs(logsQuery.data);
+    }
+  }, [logsQuery.data, setCachedLogs]);
 
   const addHabit = useCallback(
     (name: string, color: string) => {

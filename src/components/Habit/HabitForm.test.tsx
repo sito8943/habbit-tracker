@@ -18,7 +18,7 @@ describe("HabitForm", () => {
     fireEvent.click(screen.getByRole("button", { name: "Add" }));
 
     await waitFor(() => {
-      expect(createHabitSpy).toHaveBeenCalledWith({ name: "Read book", color: COLORS[0] });
+      expect(createHabitSpy).toHaveBeenCalledWith({ name: "Read book", color: COLORS[0] }, expect.any(String));
     });
   });
 });
