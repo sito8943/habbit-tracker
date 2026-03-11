@@ -1,5 +1,8 @@
-import { AuthPromptModal, HabitForm, HabitList, SyncCodeFab } from "../components";
+import { lazy, Suspense } from "react";
+import { HabitForm, HabitList, SyncCodeFab } from "../components";
 import { useHomeView } from "../hooks";
+
+const AuthPromptModal = lazy(() => import("../components/AuthPromptModal/AuthPromptModal"));
 
 const Home = () => {
   const {
@@ -7,6 +10,7 @@ const Home = () => {
     doneCount,
     totalHabits,
     isCodePromptOpen,
+    shouldRenderCodePrompt,
     isFabBuzzing,
     handleFirstInteraction,
     openCodePrompt,
@@ -21,7 +25,11 @@ const Home = () => {
       <HabitList onInteraction={handleFirstInteraction} />
       <HabitForm onInteraction={handleFirstInteraction} />
       <SyncCodeFab animate={isFabBuzzing} onClick={openCodePrompt} />
-      <AuthPromptModal isOpen={isCodePromptOpen} onClose={closeCodePrompt} />
+      {shouldRenderCodePrompt ? (
+        <Suspense fallback={null}>
+          <AuthPromptModal isOpen={isCodePromptOpen} onClose={closeCodePrompt} />
+        </Suspense>
+      ) : null}
     </>
   );
 };

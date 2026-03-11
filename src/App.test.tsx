@@ -15,7 +15,7 @@ describe("App integration", () => {
 
     renderWithProviders(<App />, { manager });
 
-    expect(screen.getByRole("heading", { level: 2 })).toHaveTextContent(
+    expect(await screen.findByRole("heading", { level: 2 })).toHaveTextContent(
       `${initialDate} — 0/0 done`
     );
 
@@ -39,11 +39,11 @@ describe("App integration", () => {
     );
 
     fireEvent.click(screen.getByRole("link", { name: "Calendar" }));
-    expect(screen.getByRole("heading", { level: 3, name: /\d{4}/ })).toBeInTheDocument();
+    expect(await screen.findByRole("heading", { level: 3, name: /\d{4}/ })).toBeInTheDocument();
 
     fireEvent.click(screen.getByRole("button", { name: "5" }));
 
-    expect(screen.getByRole("heading", { level: 2 })).toHaveTextContent(
+    expect(await screen.findByRole("heading", { level: 2 })).toHaveTextContent(
       `${expectedCalendarSelection} — 0/1 done`
     );
   }, 15_000);
@@ -53,7 +53,9 @@ describe("App integration", () => {
 
     renderWithProviders(<App />, { manager });
 
-    const openRecoveryCodeButton = await screen.findByRole("button", { name: "Open recovery code" });
+    const openRecoveryCodeButton = await screen.findByRole("button", {
+      name: "Open recovery code",
+    });
     expect(openRecoveryCodeButton).not.toHaveClass("fab-buzz-once");
 
     fireEvent.change(screen.getByPlaceholderText("New habit..."), {
@@ -64,9 +66,9 @@ describe("App integration", () => {
     await waitFor(() => expect(openRecoveryCodeButton).toHaveClass("fab-buzz-once"));
     fireEvent.click(openRecoveryCodeButton);
 
-    await waitFor(() =>
-      expect(screen.getByRole("heading", { level: 3, name: "Recovery code" })).toBeInTheDocument()
-    );
+    expect(
+      await screen.findByRole("heading", { level: 3, name: "Recovery code" })
+    ).toBeInTheDocument();
     expect(
       screen.getByText("Save this code. Use it on another device to recover and sync your habits.")
     ).toBeInTheDocument();

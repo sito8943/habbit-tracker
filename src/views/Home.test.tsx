@@ -65,7 +65,10 @@ describe("Home view", () => {
     fireEvent.click(screen.getByRole("button", { name: "Add" }));
 
     await waitFor(() => {
-      expect(createHabitSpy).toHaveBeenCalledWith({ name: "Read docs", color: COLORS[0] }, expect.any(String));
+      expect(createHabitSpy).toHaveBeenCalledWith(
+        { name: "Read docs", color: COLORS[0] },
+        expect.any(String)
+      );
     });
   });
 
@@ -95,11 +98,15 @@ describe("Home view", () => {
       timeout: 2000,
     });
 
-    expect(screen.queryByRole("heading", { level: 3, name: "Recovery code" })).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("heading", { level: 3, name: "Recovery code" })
+    ).not.toBeInTheDocument();
 
     fireEvent.click(openRecoveryCodeButton);
 
-    expect(screen.getByRole("heading", { level: 3, name: "Recovery code" })).toBeInTheDocument();
+    expect(
+      await screen.findByRole("heading", { level: 3, name: "Recovery code" })
+    ).toBeInTheDocument();
     expect(
       screen.getByText("Save this code. Use it on another device to recover and sync your habits.")
     ).toBeInTheDocument();

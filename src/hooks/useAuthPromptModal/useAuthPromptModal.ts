@@ -117,7 +117,9 @@ export const useAuthPromptModal = ({
         setIsRestoringCode(false);
         setRecoveryCodeInput("");
       } catch (error) {
-        setErrorMessage(error instanceof Error ? error.message : "Failed to load data for this code.");
+        setErrorMessage(
+          error instanceof Error ? error.message : "Failed to load data for this code."
+        );
       } finally {
         setIsApplyingCode(false);
       }

@@ -74,11 +74,7 @@ const AuthPromptModal = ({ isOpen, onClose }: AuthPromptModalProps) => {
               <Button type="submit" variant="filled" disabled={isApplyingCode}>
                 {isApplyingCode ? "Loading..." : "Use code"}
               </Button>
-              <Button
-                variant="text"
-                disabled={isApplyingCode}
-                onClick={showCurrentCode}
-              >
+              <Button variant="text" disabled={isApplyingCode} onClick={showCurrentCode}>
                 Show my code
               </Button>
             </div>
@@ -100,7 +96,10 @@ const AuthPromptModal = ({ isOpen, onClose }: AuthPromptModalProps) => {
         )}
 
         {errorMessage ? (
-          <p role="alert" className="mt-3 rounded-md border border-red-300 bg-red-50 p-2 text-sm text-red-700">
+          <p
+            role="alert"
+            className="mt-3 rounded-md border border-red-300 bg-red-50 p-2 text-sm text-red-700"
+          >
             {errorMessage}
           </p>
         ) : null}

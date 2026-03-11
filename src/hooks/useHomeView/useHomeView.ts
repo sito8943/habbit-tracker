@@ -10,6 +10,7 @@ const FAB_BUZZ_DURATION_MS = 1200;
 export const useHomeView = (): UseHomeViewResult => {
   const { habits, logs, selectedDate } = useHabitsContext();
   const [isCodePromptOpen, setIsCodePromptOpen] = useState(false);
+  const [hasOpenedCodePrompt, setHasOpenedCodePrompt] = useState(false);
   const [hasPlayedFabBuzz, setHasPlayedFabBuzz] = useLocalStorage<boolean>(
     SYNC_CODE_FAB_BUZZ_STORAGE_KEY,
     false
@@ -45,6 +46,7 @@ export const useHomeView = (): UseHomeViewResult => {
   }, [hasPlayedFabBuzz, isFabBuzzing, setHasPlayedFabBuzz]);
 
   const openCodePrompt = useCallback(() => {
+    setHasOpenedCodePrompt(true);
     setIsCodePromptOpen(true);
   }, []);
 
@@ -57,6 +59,7 @@ export const useHomeView = (): UseHomeViewResult => {
     doneCount,
     totalHabits: habits.length,
     isCodePromptOpen,
+    shouldRenderCodePrompt: hasOpenedCodePrompt || isCodePromptOpen,
     isFabBuzzing,
     handleFirstInteraction,
     openCodePrompt,

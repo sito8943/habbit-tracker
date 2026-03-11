@@ -36,7 +36,8 @@ export const useCalendarMonth = ({
             : isToday
               ? "warning"
               : "primary";
-        const variant: CalendarDayViewModel["variant"] = isSelected || hasLog ? "filled" : "outlined";
+        const variant: CalendarDayViewModel["variant"] =
+          isSelected || hasLog ? "filled" : "outlined";
 
         return {
           dateStr,
