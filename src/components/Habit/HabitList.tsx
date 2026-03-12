@@ -2,6 +2,7 @@ import { faSpinner, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useHabitList } from "../../hooks";
 import { IconButton } from "../Button";
+import { Notice } from "../Notice";
 
 type HabitListProps = {
   onInteraction?: () => void;
@@ -18,11 +19,11 @@ const HabitList = ({ onInteraction }: HabitListProps) => {
 
   return (
     <ul className="list-none p-0">
-      {error && (
-        <p role="alert" className="mb-3 rounded border border-error px-2 py-1 text-sm text-error">
+      {error ? (
+        <Notice role="alert" tone="error" className="mb-3">
           {error.message}
-        </p>
-      )}
+        </Notice>
+      ) : null}
       {items.map((habit) => {
         return (
           <li

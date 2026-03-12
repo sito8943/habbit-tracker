@@ -1,5 +1,5 @@
 import { useCallback, useMemo, type CSSProperties } from "react";
-import { useHabitsContext } from "../../providers";
+import { useHabitsContext } from "../../providers/Habits";
 import { getStreak, isLogged } from "../../utils/habits";
 import type { UseHabitListOptions, UseHabitListResult } from "./types";
 

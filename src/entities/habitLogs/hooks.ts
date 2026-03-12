@@ -1,17 +1,18 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type { LogEntry } from "../../utils/habits";
 import { queryKeys } from "../../lib/query/queryKeys";
-import { useSupabaseManager, useSyncCode } from "../../providers";
+import { useSupabaseManager } from "../../providers/Supabase";
+import { useSyncCode } from "../../providers/SyncCode";
 import type { ToggleLogInput } from "./types";
 
-export const useLogsQuery = (initialData?: LogEntry[]) => {
+export const useLogsQuery = (cachedData?: LogEntry[]) => {
   const manager = useSupabaseManager();
   const { code } = useSyncCode();
 
   return useQuery({
     queryKey: queryKeys.logs(code),
     queryFn: () => manager.logsClient.listLogs(code),
-    initialData,
+    placeholderData: cachedData,
   });
 };
 

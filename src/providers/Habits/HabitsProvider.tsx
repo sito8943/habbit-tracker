@@ -6,7 +6,7 @@ import {
   useLogsQuery,
   useToggleLogMutation,
 } from "../../entities";
-import { useLocalStorage } from "../../hooks";
+import useLocalStorage from "../../hooks/useLocalStorage";
 import type { Habit, LogEntry } from "../../utils/habits";
 import { getHabitLogsCacheKey, getHabitsCacheKey } from "../../utils/cache";
 import { useSyncCode } from "../SyncCode";

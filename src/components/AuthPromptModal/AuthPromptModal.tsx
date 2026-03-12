@@ -1,4 +1,5 @@
 import { Button } from "../Button";
+import { Notice } from "../Notice";
 import { useAuthPromptModal } from "../../hooks";
 
 type AuthPromptModalProps = {
@@ -96,21 +97,15 @@ const AuthPromptModal = ({ isOpen, onClose }: AuthPromptModalProps) => {
         )}
 
         {errorMessage ? (
-          <p
-            role="alert"
-            className="mt-3 rounded-md border border-red-300 bg-red-50 p-2 text-sm text-red-700"
-          >
+          <Notice role="alert" tone="error" className="mt-3 p-2">
             {errorMessage}
-          </p>
+          </Notice>
         ) : null}
 
         {successMessage ? (
-          <p
-            role="status"
-            className="mt-3 rounded-md border border-emerald-300 bg-emerald-50 p-2 text-sm text-emerald-700"
-          >
+          <Notice role="status" tone="success" className="mt-3 p-2">
             {successMessage}
-          </p>
+          </Notice>
         ) : null}
       </section>
     </aside>

@@ -1,13 +1,13 @@
 import { useCallback, useEffect, useState, type ChangeEvent, type FormEvent } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { queryKeys } from "../../lib/query/queryKeys";
+import { useSupabaseManager } from "../../providers/Supabase";
 import {
   isValidSyncCode,
   normalizeSyncCode,
   SYNC_CODE_LENGTH,
-  useSupabaseManager,
   useSyncCode,
-} from "../../providers";
+} from "../../providers/SyncCode";
 import { cacheHabitsAndLogs } from "../../utils/cache";
 import type { UseAuthPromptModalOptions, UseAuthPromptModalResult } from "./types";
 

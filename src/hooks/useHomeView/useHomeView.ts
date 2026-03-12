@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { useHabitsContext } from "../../providers";
+import { useHabitsContext } from "../../providers/Habits";
 import { isLogged } from "../../utils/habits";
 import useLocalStorage from "../useLocalStorage";
 import type { UseHomeViewResult } from "./types";

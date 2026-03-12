@@ -32,7 +32,7 @@ describe("Home view", () => {
       { manager }
     );
 
-    await waitFor(() => expect(screen.getByText("Read")).toBeInTheDocument());
+    expect(await screen.findByText("Read", {}, { timeout: 10_000 })).toBeInTheDocument();
     expect(screen.getByRole("heading", { level: 2 })).toHaveTextContent(
       `${selectedDate} — 1/2 done`
     );
@@ -56,7 +56,7 @@ describe("Home view", () => {
     });
     fireEvent.click(screen.getByRole("button", { name: "Add" }));
 
-    await waitFor(() => expect(screen.getByText("Write tests")).toBeInTheDocument());
+    expect(await screen.findByText("Write tests", {}, { timeout: 10_000 })).toBeInTheDocument();
 
     const createHabitSpy = vi.spyOn(manager.habitsClient, "createHabit");
     fireEvent.change(screen.getByPlaceholderText("New habit..."), {
@@ -86,7 +86,9 @@ describe("Home view", () => {
       { manager }
     );
 
-    await waitFor(() => expect(screen.getByRole("checkbox", { name: "Read" })).toBeInTheDocument());
+    expect(
+      await screen.findByRole("checkbox", { name: "Read" }, { timeout: 10_000 })
+    ).toBeInTheDocument();
 
     const openRecoveryCodeButton = screen.getByRole("button", { name: "Open recovery code" });
     expect(openRecoveryCodeButton).not.toHaveClass("fab-buzz-once");

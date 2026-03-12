@@ -1,17 +1,18 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type { Habit } from "../../utils/habits";
 import { queryKeys } from "../../lib/query/queryKeys";
-import { useSupabaseManager, useSyncCode } from "../../providers/";
+import { useSupabaseManager } from "../../providers/Supabase";
+import { useSyncCode } from "../../providers/SyncCode";
 import type { CreateHabitInput } from "./types";
 
-export const useHabitsQuery = (initialData?: Habit[]) => {
+export const useHabitsQuery = (cachedData?: Habit[]) => {
   const manager = useSupabaseManager();
   const { code } = useSyncCode();
 
   return useQuery({
     queryKey: queryKeys.habits(code),
     queryFn: () => manager.habitsClient.listHabits(code),
-    initialData,
+    placeholderData: cachedData,
   });
 };
 
