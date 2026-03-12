@@ -1,21 +1,10 @@
-import { useNavigate, useOutletContext } from "react-router";
 import { Calendar as CalendarView } from "../components";
-import type { ViewContextType } from "../layouts/View";
+import { useCalendarView } from "../hooks";
 
 const Calendar = () => {
-  const { logs, selectedDate, selectDate } = useOutletContext<ViewContextType>();
-  const navigate = useNavigate();
+  const { logs, selectedDate, onSelectDate } = useCalendarView();
 
-  return (
-    <CalendarView
-      logs={logs}
-      selectedDate={selectedDate}
-      onSelectDate={(date) => {
-        selectDate(date);
-        navigate("/");
-      }}
-    />
-  );
+  return <CalendarView logs={logs} selectedDate={selectedDate} onSelectDate={onSelectDate} />;
 };
 
 export default Calendar;

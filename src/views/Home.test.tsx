@@ -1,63 +1,120 @@
-import { fireEvent, render, screen } from "@testing-library/react";
-import { MemoryRouter, Outlet, Route, Routes } from "react-router";
+import { fireEvent, screen, waitFor } from "@testing-library/react";
+import { afterEach, describe, expect, it, vi } from "vitest";
+import { MemoryRouter, Route, Routes } from "react-router";
 import { COLORS } from "../utils/constant";
-import type { ViewContextType } from "../layouts/View";
 import Home from "./Home";
-
-type ContextLayoutProps = {
-  context: ViewContextType;
-};
-
-const ContextLayout = ({ context }: ContextLayoutProps) => <Outlet context={context} />;
-
-const buildContext = (overrides: Partial<ViewContextType> = {}): ViewContextType => ({
-  habits: [],
-  logs: [],
-  selectedDate: "2026-03-06",
-  addHabit: vi.fn(),
-  deleteHabit: vi.fn(),
-  toggleLog: vi.fn(),
-  selectDate: vi.fn(),
-  ...overrides,
-});
-
-const renderHome = (context: ViewContextType) =>
-  render(
-    <MemoryRouter initialEntries={["/"]}>
-      <Routes>
-        <Route path="/" element={<ContextLayout context={context} />}>
-          <Route index element={<Home />} />
-        </Route>
-      </Routes>
-    </MemoryRouter>
-  );
+import { createMockSupabaseManager } from "../test/mockSupabaseManager";
+import { renderWithProviders } from "../test/renderWithProviders";
+import { today } from "../utils/habits";
 
 describe("Home view", () => {
-  it("renders without crashing with outlet context", () => {
-    renderHome(
-      buildContext({
-        habits: [
-          { id: "habit-1", name: "Read", color: "#3498db" },
-          { id: "habit-2", name: "Workout", color: "#2ecc71" },
-        ],
-        logs: [{ habitId: "habit-1", date: "2026-03-06" }],
-      })
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
+  it("renders habits and progress from habits context", async () => {
+    const selectedDate = today();
+
+    const manager = createMockSupabaseManager({
+      habits: [
+        { id: 1, name: "Read", color: "#3498db" },
+        { id: 2, name: "Workout", color: "#2ecc71" },
+      ],
+      logs: [{ id: 1, habitId: 1, date: selectedDate }],
+    });
+
+    renderWithProviders(
+      <MemoryRouter initialEntries={["/"]}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </MemoryRouter>,
+      { manager }
     );
 
-    expect(screen.getByRole("heading", { level: 2 })).toHaveTextContent("2026-03-06 — 1/2 done");
-    expect(screen.getByText("Read")).toBeInTheDocument();
+    await waitFor(() => expect(screen.getByText("Read")).toBeInTheDocument());
+    expect(screen.getByRole("heading", { level: 2 })).toHaveTextContent(
+      `${selectedDate} — 1/2 done`
+    );
     expect(screen.getByRole("button", { name: "Add" })).toBeInTheDocument();
   });
 
-  it("uses addHabit action from outlet context", () => {
-    const addHabit = vi.fn();
-    renderHome(buildContext({ addHabit }));
+  it("creates a new habit from form", async () => {
+    const manager = createMockSupabaseManager();
+
+    renderWithProviders(
+      <MemoryRouter initialEntries={["/"]}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </MemoryRouter>,
+      { manager }
+    );
 
     fireEvent.change(screen.getByPlaceholderText("New habit..."), {
       target: { value: "Write tests" },
     });
     fireEvent.click(screen.getByRole("button", { name: "Add" }));
 
-    expect(addHabit).toHaveBeenCalledWith("Write tests", COLORS[0]);
+    await waitFor(() => expect(screen.getByText("Write tests")).toBeInTheDocument());
+
+    const createHabitSpy = vi.spyOn(manager.habitsClient, "createHabit");
+    fireEvent.change(screen.getByPlaceholderText("New habit..."), {
+      target: { value: "Read docs" },
+    });
+    fireEvent.click(screen.getByRole("button", { name: "Add" }));
+
+    await waitFor(() => {
+      expect(createHabitSpy).toHaveBeenCalledWith(
+        { name: "Read docs", color: COLORS[0] },
+        expect.any(String)
+      );
+    });
+  });
+
+  it("shows recovery code prompt only after clicking the floating action button", async () => {
+    const manager = createMockSupabaseManager({
+      habits: [{ id: 1, name: "Read", color: "#3498db" }],
+    });
+
+    renderWithProviders(
+      <MemoryRouter initialEntries={["/"]}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </MemoryRouter>,
+      { manager }
+    );
+
+    await waitFor(() => expect(screen.getByRole("checkbox", { name: "Read" })).toBeInTheDocument());
+
+    const openRecoveryCodeButton = screen.getByRole("button", { name: "Open recovery code" });
+    expect(openRecoveryCodeButton).not.toHaveClass("fab-buzz-once");
+
+    fireEvent.click(screen.getByRole("checkbox", { name: "Read" }));
+    expect(openRecoveryCodeButton).toHaveClass("fab-buzz-once");
+
+    await waitFor(() => expect(openRecoveryCodeButton).not.toHaveClass("fab-buzz-once"), {
+      timeout: 2000,
+    });
+
+    expect(
+      screen.queryByRole("heading", { level: 3, name: "Recovery code" })
+    ).not.toBeInTheDocument();
+
+    fireEvent.click(openRecoveryCodeButton);
+
+    expect(
+      await screen.findByRole("heading", { level: 3, name: "Recovery code" })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText("Save this code. Use it on another device to recover and sync your habits.")
+    ).toBeInTheDocument();
+    expect(screen.queryByPlaceholderText("AB12")).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "Already have Code" }));
+    expect(screen.getByPlaceholderText("AB12")).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole("checkbox", { name: "Read" }));
+    expect(openRecoveryCodeButton).not.toHaveClass("fab-buzz-once");
   });
 });

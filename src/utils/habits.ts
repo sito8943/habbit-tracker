@@ -1,17 +1,20 @@
 export type Habit = {
-  id: string;
+  id: number;
   name: string;
   color: string;
+  createdAt?: string;
+  updatedAt?: string;
+  deletedAt?: string | null;
 };
 
 export type LogEntry = {
-  habitId: string;
+  id?: number;
+  habitId: number;
   date: string; // YYYY-MM-DD
+  createdAt?: string;
+  updatedAt?: string;
+  deletedAt?: string | null;
 };
-
-export function generateId(): string {
-  return Math.random().toString(36).slice(2, 9);
-}
 
 export function formatDate(date: Date): string {
   return date.toISOString().slice(0, 10);
@@ -21,7 +24,7 @@ export function today(): string {
   return formatDate(new Date());
 }
 
-export function isLogged(logs: LogEntry[], habitId: string, date: string): boolean {
+export function isLogged(logs: LogEntry[], habitId: number, date: string): boolean {
   return logs.some((l) => l.habitId === habitId && l.date === date);
 }
 
@@ -29,7 +32,7 @@ export function hasAnyLog(logs: LogEntry[], date: string): boolean {
   return logs.some((l) => l.date === date);
 }
 
-export function getStreak(logs: LogEntry[], habitId: string): number {
+export function getStreak(logs: LogEntry[], habitId: number): number {
   let streak = 0;
   const date = new Date();
   while (true) {

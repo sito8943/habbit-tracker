@@ -1,23 +1,19 @@
-import { render, screen } from "@testing-library/react";
+import { screen, waitFor } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 import HabitList from "./HabitList";
+import { createMockSupabaseManager } from "../../test/mockSupabaseManager";
+import { renderWithProviders } from "../../test/renderWithProviders";
 
 describe("HabitList", () => {
-  it("renders without crashing", () => {
-    const habits = [{ id: "habit-1", name: "Read", color: "#3498db" }];
-    const logs: { habitId: string; date: string }[] = [];
+  it("renders without crashing", async () => {
+    const manager = createMockSupabaseManager({
+      habits: [{ id: 1, name: "Read", color: "#3498db" }],
+    });
 
-    render(
-      <HabitList
-        habits={habits}
-        logs={logs}
-        date="2026-03-06"
-        onToggle={vi.fn()}
-        onDelete={vi.fn()}
-      />
-    );
+    renderWithProviders(<HabitList />, { manager });
 
-    expect(screen.getByText("Read")).toBeInTheDocument();
-    expect(screen.getByRole("checkbox")).toBeInTheDocument();
+    await waitFor(() => expect(screen.getByText("Read")).toBeInTheDocument());
+    expect(screen.getByRole("checkbox", { name: "Read" })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Delete habit" })).toBeInTheDocument();
   });
 });

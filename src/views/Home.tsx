@@ -1,26 +1,35 @@
-import { useOutletContext } from "react-router";
-import { HabitForm, HabitList } from "../components";
-import type { ViewContextType } from "../layouts/View";
-import { isLogged } from "../utils/habits";
+import { lazy, Suspense } from "react";
+import { HabitForm, HabitList, SyncCodeFab } from "../components";
+import { useHomeView } from "../hooks";
+
+const AuthPromptModal = lazy(() => import("../components/AuthPromptModal/AuthPromptModal"));
 
 const Home = () => {
-  const { habits, logs, selectedDate, addHabit, deleteHabit, toggleLog } =
-    useOutletContext<ViewContextType>();
-  const doneCount = habits.filter((habit) => isLogged(logs, habit.id, selectedDate)).length;
+  const {
+    selectedDate,
+    doneCount,
+    totalHabits,
+    isCodePromptOpen,
+    shouldRenderCodePrompt,
+    isFabBuzzing,
+    handleFirstInteraction,
+    openCodePrompt,
+    closeCodePrompt,
+  } = useHomeView();
 
   return (
     <>
       <h2 className="mb-3 text-lg font-semibold text-text-muted">
-        {selectedDate} — {doneCount}/{habits.length} done
+        {selectedDate} — {doneCount}/{totalHabits} done
       </h2>
-      <HabitList
-        habits={habits}
-        logs={logs}
-        date={selectedDate}
-        onToggle={toggleLog}
-        onDelete={deleteHabit}
-      />
-      <HabitForm onAdd={addHabit} />
+      <HabitList onInteraction={handleFirstInteraction} />
+      <HabitForm onInteraction={handleFirstInteraction} />
+      <SyncCodeFab animate={isFabBuzzing} onClick={openCodePrompt} />
+      {shouldRenderCodePrompt ? (
+        <Suspense fallback={null}>
+          <AuthPromptModal isOpen={isCodePromptOpen} onClose={closeCodePrompt} />
+        </Suspense>
+      ) : null}
     </>
   );
 };
