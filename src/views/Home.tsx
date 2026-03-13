@@ -2,7 +2,9 @@ import { lazy, Suspense } from "react";
 import { HabitForm, HabitList, SyncCodeFab } from "../components";
 import { useHomeView } from "../hooks";
 
-const AuthPromptModal = lazy(() => import("../components/AuthPromptModal/AuthPromptModal"));
+const AuthPromptModal = lazy(() =>
+  import("../components/AuthPromptModal").then((module) => ({ default: module.AuthPromptModal }))
+);
 
 const Home = () => {
   const {

@@ -1,11 +1,9 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { useHabitsContext } from "../../providers";
+import { useHabitsContext } from "../../providers/Habits";
 import { isLogged } from "../../utils/habits";
 import useLocalStorage from "../useLocalStorage";
+import { FAB_BUZZ_DURATION_MS, SYNC_CODE_FAB_BUZZ_STORAGE_KEY } from "./constants";
 import type { UseHomeViewResult } from "./types";
-
-const SYNC_CODE_FAB_BUZZ_STORAGE_KEY = "sync-code-fab-buzzed";
-const FAB_BUZZ_DURATION_MS = 1200;
 
 export const useHomeView = (): UseHomeViewResult => {
   const { habits, logs, selectedDate } = useHabitsContext();

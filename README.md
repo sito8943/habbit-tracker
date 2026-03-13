@@ -1,83 +1,94 @@
 # Focus Habit
 
-A personal habit tracking app built with **React**, **TypeScript**, and **Vite**. Track your daily progress across custom habit types — from workouts and skills to reading and mindfulness — all in one place.
+Habit tracker built with React + TypeScript + Vite.
 
----
+It lets you create custom habits, mark daily completions, browse progress on a calendar, and recover/sync data with a short code.
 
-## Description
+## Features
 
-Habit Tracker lets you define your own habit types and the specific data you want to log for each one. Every day, you open the calendar, pick a date, and record your activity per habit type. Over time, you build a detailed history of your progress that you can review and reflect on.
+- Custom habits (name + color)
+- Daily completion tracking
+- Calendar view with logged-day indicators
+- Recovery code flow for restoring/syncing data
+- Local cache fallback per recovery code
 
-The core idea is flexibility: instead of a fixed list of habits, you design your own — choose what fields matter to you (duration, reps, notes, rating, etc.) and log accordingly.
+## Tech stack
 
----
+- React 19
+- TypeScript (strict mode)
+- Vite
+- React Query
+- Supabase
+- Tailwind CSS 4
+- Vitest + Testing Library
 
-## Potential Features
+## Quick start
 
-### Core
-
-- **Custom habit types** — define your own habits (e.g., "Workout", "Reading", "Skill practice") with a name, icon, and color ---DONE---
-- **Custom fields per habit** — for each habit type, define the data you want to log (text, number, duration, rating, checkbox, etc.)
-- **Calendar view** — monthly calendar showing which days have logged entries and at a glance how active you were ---DONE---
-- **Daily log** — click any day on the calendar to view or add entries for each habit type ---DONE---
-- **Entry form** — dynamic form generated from the habit type's field definitions
-
-### Habits
-
-- **Physical activity** — log exercise type, duration, reps, distance, notes
-- **Skills & learning** — log what you practiced, for how long, resources used
-- **Reading** — book title, pages read, notes
-- **Custom habits** — any habit you can define with your own fields
-
-### Analytics & History
-
-- **Streak tracking** — current and longest streak per habit type
-- **Progress charts** — visualize your data over time (bar, line charts)
-- **Monthly/weekly summary** — overview of activity per habit type
-- **Heatmap** — GitHub-style contribution heatmap per habit
-
-### UX
-
-- **Dark / light mode**
-- **Responsive design** — works on mobile and desktop
-- **Local storage persistence** — no backend required to get started
-- **Data export** — export your logs as JSON or CSV
-
-### Future / Nice to have
-
-- **Reminders / notifications** — push reminders for daily logging
-- **Goals** — set targets per habit (e.g., exercise 4x/week) and track progress toward them
-- **Tags** — tag entries for filtering and grouping
-- **Cloud sync** — optional backend to sync across devices
-- **Multi-user** — separate profiles on the same device
-
----
-
-## Tech Stack
-
-| Tool              | Purpose                   |
-| ----------------- | ------------------------- |
-| React 19          | UI framework              |
-| TypeScript        | Type safety               |
-| Vite              | Build tool & dev server   |
-| ESLint + Prettier | Code quality & formatting |
-
----
-
-## Getting Started
+1. Install dependencies:
 
 ```bash
-npm install
+npm ci
+```
+
+2. Create `.env` (or copy from `.env.example`) with:
+
+```bash
+VITE_SUPABASE_CO=...
+VITE_SUPABASE_ANON=...
+# optional
+VITE_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY=...
+```
+
+3. Start dev server:
+
+```bash
 npm run dev
 ```
 
----
+## Architecture at a glance
+
+Codebase is organized by clear boundaries:
+
+- `src/views`, `src/layouts`: route composition
+- `src/components`: reusable/presentational UI
+- `src/hooks`: view-model and UI logic
+- `src/providers`: app-level orchestration/context
+- `src/entities`: domain data hooks + contracts
+- `src/lib`: integration layer (Supabase, QueryClient)
+- `src/utils`: pure helpers
+
+Data flow:
+
+1. UI event in component
+2. Hook transforms UI intent
+3. Provider action runs mutation/query
+4. Entity hook calls Supabase client
+5. React Query cache invalidates and refetches
+6. Provider syncs latest data into localStorage cache per recovery code
+
+More detail:
+
+- [Architecture](./docs/ARCHITECTURE.md)
+- [Troubleshooting](./docs/TROUBLESHOOTING.md)
 
 ## Scripts
 
-| Command           | Description              |
-| ----------------- | ------------------------ |
-| `npm run dev`     | Start dev server         |
-| `npm run build`   | Build for production     |
-| `npm run lint`    | Run ESLint               |
-| `npm run preview` | Preview production build |
+| Command                | Description                            |
+| ---------------------- | -------------------------------------- |
+| `npm run dev`          | Start dev server                       |
+| `npm run build`        | Type-check and production build        |
+| `npm run preview`      | Preview production build               |
+| `npm run test`         | Run test suite                         |
+| `npm run test:watch`   | Run tests in watch mode                |
+| `npm run lint`         | Run ESLint                             |
+| `npm run format`       | Format code with Prettier              |
+| `npm run format:check` | Validate formatting with Prettier      |
+| `npm run depcheck`     | Check for unused dependencies          |
+| `npm run lint:all`     | Lint + format check + dependency check |
+
+## Quality gates
+
+- Type safety: `tsconfig` strict checks
+- Linting/formatting: ESLint + Prettier
+- Unit/integration tests: Vitest + Testing Library
+- CI workflow: lint, test, build, deploy

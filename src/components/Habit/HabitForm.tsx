@@ -1,9 +1,7 @@
 import { useHabitForm } from "../../hooks";
 import { Button } from "../Button";
-
-type HabitFormProps = {
-  onInteraction?: () => void;
-};
+import { Notice } from "../Notice";
+import type { HabitFormProps } from "./types";
 
 const HabitForm = ({ onInteraction }: HabitFormProps) => {
   const {
@@ -19,14 +17,11 @@ const HabitForm = ({ onInteraction }: HabitFormProps) => {
 
   return (
     <form onSubmit={handleSubmit} className="mt-4">
-      {error && (
-        <p
-          role="alert"
-          className="mb-3 rounded border border-error px-2 py-1 text-sm text-error bg-bg-error"
-        >
+      {error ? (
+        <Notice role="alert" tone="error" className="mb-3">
           {error.message}
-        </p>
-      )}
+        </Notice>
+      ) : null}
       <div className="mb-2 flex gap-2">
         <input
           value={name}

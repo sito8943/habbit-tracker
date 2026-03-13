@@ -1,16 +1,10 @@
-import { QueryClientProvider, type QueryClient } from "@tanstack/react-query";
-import { useState, type ReactNode } from "react";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { useState } from "react";
 import { createQueryClient } from "../lib/query/queryClient";
-import type { SupabaseManagerLike } from "../lib/supabase/manager.types";
 import { HabitsProvider } from "./Habits";
-import { SupabaseProvider } from "./Supabase/SupabaseProvider";
+import { SupabaseProvider } from "./Supabase";
 import { SyncCodeProvider } from "./SyncCode";
-
-type AppProvidersProps = {
-  children: ReactNode;
-  manager?: SupabaseManagerLike;
-  queryClient?: QueryClient;
-};
+import type { AppProvidersProps } from "./types";
 
 export const AppProviders = ({ children, manager, queryClient }: AppProvidersProps) => {
   const [resolvedQueryClient] = useState(() => queryClient ?? createQueryClient());

@@ -1,33 +1,11 @@
-import { useMemo, useState, useEffect, useCallback, type ReactNode } from "react";
-import {
-  generateSyncCode,
-  isValidSyncCode,
-  normalizeSyncCode,
-  SYNC_CODE_STORAGE_KEY,
-  SyncCodeContext,
-  type SyncCodeContextType,
-} from "./useSyncCode";
-
-type SyncCodeProviderProps = {
-  children: ReactNode;
-};
-
-const resolveInitialCode = (): string => {
-  const storedCode = localStorage.getItem(SYNC_CODE_STORAGE_KEY);
-  const normalizedStoredCode = normalizeSyncCode(storedCode ?? "");
-
-  if (isValidSyncCode(normalizedStoredCode)) {
-    return normalizedStoredCode;
-  }
-
-  const generatedCode = generateSyncCode();
-  localStorage.setItem(SYNC_CODE_STORAGE_KEY, generatedCode);
-
-  return generatedCode;
-};
+import { useMemo, useState, useEffect, useCallback } from "react";
+import { SYNC_CODE_STORAGE_KEY } from "./constants";
+import type { SyncCodeContextType, SyncCodeProviderProps } from "./types";
+import { isValidSyncCode, normalizeSyncCode, resolveInitialSyncCode } from "./utils";
+import { SyncCodeContext } from "./useSyncCode";
 
 export const SyncCodeProvider = ({ children }: SyncCodeProviderProps) => {
-  const [code, setCodeState] = useState(resolveInitialCode);
+  const [code, setCodeState] = useState(resolveInitialSyncCode);
 
   useEffect(() => {
     localStorage.setItem(SYNC_CODE_STORAGE_KEY, code);

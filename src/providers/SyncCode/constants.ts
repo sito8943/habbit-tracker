@@ -1,0 +1,3 @@
+export const SYNC_CODE_STORAGE_KEY = "habit-sync-code";
+export const SYNC_CODE_LENGTH = 4;
+export const SYNC_CODE_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";

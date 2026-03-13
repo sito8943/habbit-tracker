@@ -1,11 +1,7 @@
 import { faKey } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconButton } from "../Button";
-
-type SyncCodeFabProps = {
-  animate: boolean;
-  onClick: () => void;
-};
+import type { SyncCodeFabProps } from "./types";
 
 const SyncCodeFab = ({ animate, onClick }: SyncCodeFabProps) => {
   return (

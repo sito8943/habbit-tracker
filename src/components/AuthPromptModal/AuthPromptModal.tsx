@@ -1,10 +1,7 @@
 import { Button } from "../Button";
+import { Notice } from "../Notice";
 import { useAuthPromptModal } from "../../hooks";
-
-type AuthPromptModalProps = {
-  isOpen: boolean;
-  onClose: () => void;
-};
+import type { AuthPromptModalProps } from "./types";
 
 const AuthPromptModal = ({ isOpen, onClose }: AuthPromptModalProps) => {
   const {
@@ -30,7 +27,7 @@ const AuthPromptModal = ({ isOpen, onClose }: AuthPromptModalProps) => {
 
   return (
     <aside
-      className={`fixed right-4 bottom-4 z-40 w-full max-w-sm p-2 transition-opacity duration-200 ${
+      className={`fixed md:right-4 right-0 md:bottom-4 z-40 w-full max-w-sm p-2 transition-opacity duration-200 ${
         isVisible ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
       }`}
     >
@@ -96,21 +93,15 @@ const AuthPromptModal = ({ isOpen, onClose }: AuthPromptModalProps) => {
         )}
 
         {errorMessage ? (
-          <p
-            role="alert"
-            className="mt-3 rounded-md border border-red-300 bg-red-50 p-2 text-sm text-red-700"
-          >
+          <Notice role="alert" tone="error" className="mt-3 p-2">
             {errorMessage}
-          </p>
+          </Notice>
         ) : null}
 
         {successMessage ? (
-          <p
-            role="status"
-            className="mt-3 rounded-md border border-emerald-300 bg-emerald-50 p-2 text-sm text-emerald-700"
-          >
+          <Notice role="status" tone="success" className="mt-3 p-2">
             {successMessage}
-          </p>
+          </Notice>
         ) : null}
       </section>
     </aside>

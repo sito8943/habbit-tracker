@@ -1,11 +1,12 @@
 import { useCallback, useState, type ChangeEvent, type FormEvent } from "react";
-import { useHabitsContext } from "../../providers";
-import { COLORS } from "../../utils/constant";
+import { useHabitsContext } from "../../providers/Habits";
+import { COLORS } from "../../utils/constants";
+import { DEFAULT_HABIT_COLOR } from "./constants";
 import type { UseHabitFormOptions, UseHabitFormResult } from "./types";
 
 export const useHabitForm = ({ onInteraction }: UseHabitFormOptions = {}): UseHabitFormResult => {
   const [name, setName] = useState("");
-  const [color, setColor] = useState(COLORS[0]);
+  const [color, setColor] = useState(DEFAULT_HABIT_COLOR);
   const { addHabit, error, isCreatingHabit } = useHabitsContext();
 
   const handleNameChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
