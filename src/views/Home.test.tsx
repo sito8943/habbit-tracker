@@ -1,7 +1,7 @@
 import { fireEvent, screen, waitFor } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { MemoryRouter, Route, Routes } from "react-router";
-import { COLORS } from "../utils/constant";
+import { COLORS } from "../utils/constants";
 import Home from "./Home";
 import { createMockSupabaseManager } from "../test/mockSupabaseManager";
 import { renderWithProviders } from "../test/renderWithProviders";

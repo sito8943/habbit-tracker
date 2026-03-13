@@ -1,10 +1,8 @@
 import { useMemo } from "react";
 import { formatDate, getMonthDays, hasAnyLog } from "../../utils/habits";
-import type {
-  CalendarDayViewModel,
-  UseCalendarMonthOptions,
-  UseCalendarMonthResult,
-} from "./types";
+import { MONTH_LABEL_FORMAT_OPTIONS } from "./constants";
+import type { UseCalendarMonthOptions, UseCalendarMonthResult } from "./types";
+import { resolveCalendarDayAppearance } from "./utils";
 
 export const useCalendarMonth = ({
   logs,
@@ -17,7 +15,7 @@ export const useCalendarMonth = ({
   const monthDays = useMemo(() => getMonthDays(year, month), [year, month]);
   const todayStr = useMemo(() => formatDate(now), [now]);
   const monthLabel = useMemo(
-    () => now.toLocaleString("default", { month: "long", year: "numeric" }),
+    () => now.toLocaleString("default", MONTH_LABEL_FORMAT_OPTIONS),
     [now]
   );
 
@@ -28,16 +26,7 @@ export const useCalendarMonth = ({
         const isSelected = dateStr === selectedDate;
         const isToday = dateStr === todayStr;
         const hasLog = hasAnyLog(logs, dateStr);
-
-        const color: CalendarDayViewModel["color"] = isSelected
-          ? "info"
-          : hasLog
-            ? "success"
-            : isToday
-              ? "warning"
-              : "primary";
-        const variant: CalendarDayViewModel["variant"] =
-          isSelected || hasLog ? "filled" : "outlined";
+        const { color, variant } = resolveCalendarDayAppearance(isSelected, hasLog, isToday);
 
         return {
           dateStr,

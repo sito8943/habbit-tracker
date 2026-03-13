@@ -9,10 +9,9 @@ import {
   useSyncCode,
 } from "../../providers/SyncCode";
 import { cacheHabitsAndLogs } from "../../utils/cache";
+import { getInvalidCodeMessage, MODAL_TRANSITION_MS } from "./constants";
 import type { UseAuthPromptModalOptions, UseAuthPromptModalResult } from "./types";
-
-const MODAL_TRANSITION_MS = 220;
-const INVALID_CODE_MESSAGE = `Use a valid ${SYNC_CODE_LENGTH}-character code (letters and numbers).`;
+import { getUnknownErrorMessage } from "./utils";
 
 export const useAuthPromptModal = ({
   isOpen,
@@ -28,6 +27,7 @@ export const useAuthPromptModal = ({
   const [recoveryCodeInput, setRecoveryCodeInput] = useState("");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const invalidCodeMessage = getInvalidCodeMessage(SYNC_CODE_LENGTH);
 
   useEffect(() => {
     if (isOpen) {
@@ -87,7 +87,7 @@ export const useAuthPromptModal = ({
 
       const normalizedCode = normalizeSyncCode(recoveryCodeInput);
       if (!isValidSyncCode(normalizedCode)) {
-        setErrorMessage(INVALID_CODE_MESSAGE);
+        setErrorMessage(invalidCodeMessage);
         return;
       }
 
@@ -110,21 +110,26 @@ export const useAuthPromptModal = ({
 
         const wasApplied = setCode(normalizedCode);
         if (!wasApplied) {
-          throw new Error(INVALID_CODE_MESSAGE);
+          throw new Error(invalidCodeMessage);
         }
 
         setSuccessMessage("Recovery code applied. Your habits and logs were loaded successfully.");
         setIsRestoringCode(false);
         setRecoveryCodeInput("");
       } catch (error) {
-        setErrorMessage(
-          error instanceof Error ? error.message : "Failed to load data for this code."
-        );
+        setErrorMessage(getUnknownErrorMessage(error, "Failed to load data for this code."));
       } finally {
         setIsApplyingCode(false);
       }
     },
-    [manager.habitsClient, manager.logsClient, queryClient, recoveryCodeInput, setCode]
+    [
+      invalidCodeMessage,
+      manager.habitsClient,
+      manager.logsClient,
+      queryClient,
+      recoveryCodeInput,
+      setCode,
+    ]
   );
 
   return {

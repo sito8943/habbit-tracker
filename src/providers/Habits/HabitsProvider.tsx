@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   useCreateHabitMutation,
   useDeleteHabitMutation,
@@ -7,38 +7,12 @@ import {
   useToggleLogMutation,
 } from "../../entities";
 import useLocalStorage from "../../hooks/useLocalStorage";
-import type { Habit, LogEntry } from "../../utils/habits";
 import { getHabitLogsCacheKey, getHabitsCacheKey } from "../../utils/cache";
+import { today, type Habit, type LogEntry } from "../../utils/habits";
 import { useSyncCode } from "../SyncCode";
-import { today } from "../../utils/habits";
-import { HabitsContext, type HabitsContextType } from "./useHabitsContext";
-
-type HabitsProviderProps = {
-  children: ReactNode;
-};
-
-const toError = (candidate: unknown): Error | null => {
-  if (!candidate) {
-    return null;
-  }
-
-  if (candidate instanceof Error) {
-    return candidate;
-  }
-
-  return new Error("Unexpected habits error");
-};
-
-const mergeErrors = (...candidates: unknown[]): Error | null => {
-  for (const candidate of candidates) {
-    const error = toError(candidate);
-    if (error) {
-      return error;
-    }
-  }
-
-  return null;
-};
+import type { HabitsContextType, HabitsProviderProps } from "./types";
+import { mergeErrors } from "./utils";
+import { HabitsContext } from "./useHabitsContext";
 
 export const HabitsProvider = ({ children }: HabitsProviderProps) => {
   const { code } = useSyncCode();

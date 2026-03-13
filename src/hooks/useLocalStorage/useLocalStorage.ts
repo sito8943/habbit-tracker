@@ -1,11 +1,8 @@
 import { useState, useEffect, useRef } from "react";
+import type { UseLocalStorageResult } from "./types";
+import { readLocalStorageValue } from "./utils";
 
-const readLocalStorageValue = <T>(key: string, initialValue: T): T => {
-  const saved = localStorage.getItem(key);
-  return saved ? (JSON.parse(saved) as T) : initialValue;
-};
-
-function useLocalStorage<T>(key: string, initialValue: T) {
+function useLocalStorage<T>(key: string, initialValue: T): UseLocalStorageResult<T> {
   const initialValueRef = useRef(initialValue);
   const [value, setValue] = useState<T>(() => readLocalStorageValue(key, initialValueRef.current));
 

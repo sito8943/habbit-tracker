@@ -1,25 +1,6 @@
-import type { ReactNode } from "react";
-
-type NoticeTone = "neutral" | "info" | "success" | "warning" | "error";
-
-type NoticeRole = "status" | "alert";
-
-type NoticeProps = {
-  children: ReactNode;
-  tone?: NoticeTone;
-  role?: NoticeRole;
-  className?: string;
-};
-
-const toneClasses: Record<NoticeTone, string> = {
-  neutral: "border-border bg-base-light text-text",
-  info: "border-bg-info bg-bg-info text-info",
-  success: "border-bg-success bg-bg-success text-success",
-  warning: "border-bg-warning bg-bg-warning text-warning",
-  error: "border-error bg-bg-error text-error",
-};
-
-const cx = (...classes: Array<string | undefined>): string => classes.filter(Boolean).join(" ");
+import { toneClasses } from "./constants";
+import type { NoticeProps } from "./types";
+import { cx } from "./utils";
 
 const Notice = ({ children, tone = "neutral", role = "status", className }: NoticeProps) => {
   return (

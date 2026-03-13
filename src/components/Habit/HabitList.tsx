@@ -3,10 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useHabitList } from "../../hooks";
 import { IconButton } from "../Button";
 import { Notice } from "../Notice";
-
-type HabitListProps = {
-  onInteraction?: () => void;
-};
+import type { HabitListProps } from "./types";
 
 const HabitList = ({ onInteraction }: HabitListProps) => {
   const { items, isEmpty, error, isSyncing, isDeletingHabit, onDelete, onToggle } = useHabitList({

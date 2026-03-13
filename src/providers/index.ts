@@ -1,5 +1,5 @@
 export { AppProviders } from "./AppProviders";
-export { SupabaseProvider, useSupabaseManager } from "./Supabase/";
+export { SupabaseProvider, useSupabaseManager } from "./Supabase";
 export {
   SyncCodeProvider,
   useSyncCode,
@@ -8,5 +8,6 @@ export {
   normalizeSyncCode,
   SYNC_CODE_LENGTH,
   SYNC_CODE_STORAGE_KEY,
-} from "./SyncCode/";
+} from "./SyncCode";
 export { HabitsProvider, useHabitsContext } from "./Habits";
+export type { AppProvidersProps } from "./types";

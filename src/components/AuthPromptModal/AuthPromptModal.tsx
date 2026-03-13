@@ -1,11 +1,7 @@
 import { Button } from "../Button";
 import { Notice } from "../Notice";
 import { useAuthPromptModal } from "../../hooks";
-
-type AuthPromptModalProps = {
-  isOpen: boolean;
-  onClose: () => void;
-};
+import type { AuthPromptModalProps } from "./types";
 
 const AuthPromptModal = ({ isOpen, onClose }: AuthPromptModalProps) => {
   const {
@@ -31,7 +27,7 @@ const AuthPromptModal = ({ isOpen, onClose }: AuthPromptModalProps) => {
 
   return (
     <aside
-      className={`fixed right-4 bottom-4 z-40 w-full max-w-sm p-2 transition-opacity duration-200 ${
+      className={`fixed md:right-4 right-0 md:bottom-4 z-40 w-full max-w-sm p-2 transition-opacity duration-200 ${
         isVisible ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
       }`}
     >

@@ -1,5 +1,5 @@
 import { useCalendarMonth } from "../../hooks";
-import { WEEKDAYS } from "../../utils/constant";
+import { WEEKDAYS } from "../../utils/constants";
 import { Button } from "../Button";
 import type { CalendarPropsTypes } from "./types";
 

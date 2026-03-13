@@ -1,10 +1,7 @@
 import { useHabitForm } from "../../hooks";
 import { Button } from "../Button";
 import { Notice } from "../Notice";
-
-type HabitFormProps = {
-  onInteraction?: () => void;
-};
+import type { HabitFormProps } from "./types";
 
 const HabitForm = ({ onInteraction }: HabitFormProps) => {
   const {
