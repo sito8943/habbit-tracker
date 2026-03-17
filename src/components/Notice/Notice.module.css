@@ -1,0 +1,37 @@
+.base {
+  border-radius: 0.25rem;
+  border: 1px solid;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.neutral {
+  border-color: var(--color-border);
+  background-color: var(--color-base-light);
+  color: var(--color-text);
+}
+
+.info {
+  border-color: var(--color-bg-info);
+  background-color: var(--color-bg-info);
+  color: var(--color-info);
+}
+
+.success {
+  border-color: var(--color-bg-success);
+  background-color: var(--color-bg-success);
+  color: var(--color-success);
+}
+
+.warning {
+  border-color: var(--color-bg-warning);
+  background-color: var(--color-bg-warning);
+  color: var(--color-warning);
+}
+
+.error {
+  border-color: var(--color-bg-error);
+  background-color: var(--color-bg-error);
+  color: var(--color-error);
+}

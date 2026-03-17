@@ -2,16 +2,17 @@ import { useCalendarMonth } from "../../hooks";
 import { WEEKDAYS } from "../../utils/constants";
 import { Button } from "../Button";
 import type { CalendarPropsTypes } from "./types";
+import styles from "./Calendar.module.css";
 
 const Calendar = ({ logs, selectedDate, onSelectDate }: CalendarPropsTypes) => {
   const { monthLabel, firstDayOffset, days } = useCalendarMonth({ logs, selectedDate });
 
   return (
-    <section className="rounded-lg border border-border bg-base-light p-3 shadow-sm">
-      <h3 className="mb-2 text-lg font-semibold capitalize text-text">{monthLabel}</h3>
-      <div className="grid grid-cols-7 gap-1 text-center">
+    <section className={styles.section}>
+      <h3 className={styles.title}>{monthLabel}</h3>
+      <div className={styles.grid}>
         {WEEKDAYS.map((d) => (
-          <div key={d} className="py-1 text-xs font-bold text-text-muted">
+          <div key={d} className={styles.weekday}>
             {d}
           </div>
         ))}
@@ -34,7 +35,7 @@ const Calendar = ({ logs, selectedDate, onSelectDate }: CalendarPropsTypes) => {
           );
         })}
       </div>
-      <p className="mt-2 text-xs text-text-muted">
+      <p className={styles.legend}>
         Blue = selected · Green = logged · Orange = today (if not selected/logged)
       </p>
     </section>

@@ -4,6 +4,7 @@ import { useHabitList } from "../../hooks";
 import { IconButton } from "../Button";
 import { Notice } from "../Notice";
 import type { HabitListProps } from "./types";
+import styles from "./HabitList.module.css";
 
 const HabitList = ({ onInteraction }: HabitListProps) => {
   const { items, isEmpty, error, isSyncing, isDeletingHabit, onDelete, onToggle } = useHabitList({
@@ -11,41 +12,35 @@ const HabitList = ({ onInteraction }: HabitListProps) => {
   });
 
   if (isEmpty) {
-    return <p className="text-sm text-text-muted">No habits yet. Add one below!</p>;
+    return <p className={styles.empty}>No habits yet. Add one below!</p>;
   }
 
   return (
-    <ul className="list-none p-0">
+    <ul className={styles.list}>
       {error ? (
-        <Notice role="alert" tone="error" className="mb-3">
+        <Notice role="alert" tone="error" className={styles.notice}>
           {error.message}
         </Notice>
       ) : null}
       {items.map((habit) => {
         return (
-          <li
-            key={habit.id}
-            className="mb-1 flex items-center gap-2 rounded-md border-l-4 py-2 px-2.5 transition-colors hover:bg-(--habit-hover-bg)"
-            style={habit.style}
-          >
+          <li key={habit.id} className={styles.item} style={habit.style}>
             <input
               disabled={isSyncing}
               type="checkbox"
               id={habit.inputId}
               checked={habit.logged}
               onChange={() => onToggle(habit.id)}
-              className="h-4 w-4 accent-primary"
+              className={styles.checkbox}
             />
             <label
               htmlFor={habit.inputId}
-              className={`flex-1 cursor-pointer ${
-                habit.logged ? "text-text-muted line-through" : "text-text"
-              }`}
+              className={`${styles.label} ${habit.logged ? styles.labelLogged : ""}`}
             >
               {habit.name}
             </label>
             {habit.streak > 0 && (
-              <span title="Current streak" className="text-xs font-semibold text-text-muted">
+              <span title="Current streak" className={styles.streak}>
                 {habit.streak}d
               </span>
             )}

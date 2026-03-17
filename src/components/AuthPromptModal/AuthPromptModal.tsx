@@ -2,6 +2,7 @@ import { Button } from "../Button";
 import { Notice } from "../Notice";
 import { useAuthPromptModal } from "../../hooks";
 import type { AuthPromptModalProps } from "./types";
+import styles from "./AuthPromptModal.module.css";
 
 const AuthPromptModal = ({ isOpen, onClose }: AuthPromptModalProps) => {
   const {
@@ -26,36 +27,30 @@ const AuthPromptModal = ({ isOpen, onClose }: AuthPromptModalProps) => {
   }
 
   return (
-    <aside
-      className={`fixed md:right-4 right-0 md:bottom-4 z-40 w-full max-w-sm p-2 transition-opacity duration-200 ${
-        isVisible ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
-      }`}
-    >
+    <aside className={`${styles.aside} ${isVisible ? styles.asideVisible : styles.asideHidden}`}>
       <section
-        className={`relative rounded-lg border border-border bg-base-light/90 p-4 shadow-lg backdrop-blur-md transition-all duration-200 ${
-          isVisible ? "translate-y-0 scale-100" : "translate-y-2 scale-95"
-        }`}
+        className={`${styles.section} ${isVisible ? styles.sectionVisible : styles.sectionHidden}`}
       >
         <Button
           variant="text"
           onClick={handleClose}
-          className="absolute top-2 right-2 text-xs text-text-muted"
+          className={styles.closeBtn}
           aria-label="Close recovery code prompt"
           disabled={isApplyingCode}
         >
           Close
         </Button>
 
-        <h3 id="auth-prompt-title" className="pr-14 text-lg font-semibold text-text">
+        <h3 id="auth-prompt-title" className={styles.title}>
           Recovery code
         </h3>
-        <p className="mt-2 text-sm text-text-muted">
+        <p className={styles.description}>
           Save this code. Use it on another device to recover and sync your habits.
         </p>
 
         {isRestoringCode ? (
-          <form className="mt-3 grid gap-2" onSubmit={applyRecoveryCode}>
-            <label className="grid gap-1 text-sm text-text-muted">
+          <form className={styles.form} onSubmit={applyRecoveryCode}>
+            <label className={styles.label}>
               Restore with code
               <input
                 autoFocus
@@ -64,10 +59,10 @@ const AuthPromptModal = ({ isOpen, onClose }: AuthPromptModalProps) => {
                 onChange={handleRecoveryCodeInputChange}
                 placeholder="AB12"
                 maxLength={syncCodeLength}
-                className="rounded-md border border-border bg-base-light p-2 font-mono uppercase text-text"
+                className={styles.codeInput}
               />
             </label>
-            <div className="flex flex-wrap gap-2">
+            <div className={styles.btnRow}>
               <Button type="submit" variant="filled" disabled={isApplyingCode}>
                 {isApplyingCode ? "Loading..." : "Use code"}
               </Button>
@@ -78,12 +73,10 @@ const AuthPromptModal = ({ isOpen, onClose }: AuthPromptModalProps) => {
           </form>
         ) : (
           <>
-            <p className="mt-3 rounded-md border border-border bg-base px-3 py-2 font-mono text-center text-xl tracking-[0.25em] text-text">
-              {code}
-            </p>
+            <p className={styles.codeDisplay}>{code}</p>
             <Button
               variant="text"
-              className="mt-2 px-0 text-xs text-primary"
+              className={styles.restoreLink}
               disabled={isApplyingCode}
               onClick={showRestoreWithCode}
             >
@@ -93,13 +86,13 @@ const AuthPromptModal = ({ isOpen, onClose }: AuthPromptModalProps) => {
         )}
 
         {errorMessage ? (
-          <Notice role="alert" tone="error" className="mt-3 p-2">
+          <Notice role="alert" tone="error" className={styles.notice}>
             {errorMessage}
           </Notice>
         ) : null}
 
         {successMessage ? (
-          <Notice role="status" tone="success" className="mt-3 p-2">
+          <Notice role="status" tone="success" className={styles.notice}>
             {successMessage}
           </Notice>
         ) : null}

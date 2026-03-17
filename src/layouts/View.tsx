@@ -1,12 +1,13 @@
 import { Outlet } from "react-router";
 import { Navbar } from "../components";
+import styles from "./View.module.css";
 
 const View = () => {
   return (
-    <main className="">
+    <main>
       <Navbar />
-      <div className="mx-auto mt-10 max-w-120 rounded-lg border border-border bg-base-light p-4">
-        <h1 className="mb-4 text-4xl">Focus Habit</h1>
+      <div className={styles.wrapper}>
+        <h1 className={styles.title}>Focus Habit</h1>
         <Outlet />
       </div>
     </main>

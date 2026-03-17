@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import Notice from "./Notice";
+import styles from "./Notice.module.css";
 
 describe("Notice", () => {
   it("renders status by default", () => {
@@ -17,6 +18,6 @@ describe("Notice", () => {
 
     const alert = screen.getByRole("alert");
     expect(alert).toHaveTextContent("Something went wrong");
-    expect(alert).toHaveClass("border-error");
+    expect(alert).toHaveClass(styles.error);
   });
 });

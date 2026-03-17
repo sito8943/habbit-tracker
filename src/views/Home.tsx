@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react";
 import { HabitForm, HabitList, SyncCodeFab } from "../components";
 import { useHomeView } from "../hooks";
+import styles from "./Home.module.css";
 
 const AuthPromptModal = lazy(() =>
   import("../components/AuthPromptModal").then((module) => ({ default: module.AuthPromptModal }))
@@ -21,7 +22,7 @@ const Home = () => {
 
   return (
     <>
-      <h2 className="mb-3 text-lg font-semibold text-text-muted">
+      <h2 className={styles.subtitle}>
         {selectedDate} — {doneCount}/{totalHabits} done
       </h2>
       <HabitList onInteraction={handleFirstInteraction} />

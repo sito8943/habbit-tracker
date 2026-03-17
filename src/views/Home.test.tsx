@@ -6,6 +6,7 @@ import Home from "./Home";
 import { createMockSupabaseManager } from "../test/mockSupabaseManager";
 import { renderWithProviders } from "../test/renderWithProviders";
 import { today } from "../utils/habits";
+import fabStyles from "../components/SyncCodeFab/SyncCodeFab.module.css";
 
 describe("Home view", () => {
   afterEach(() => {
@@ -91,12 +92,12 @@ describe("Home view", () => {
     ).toBeInTheDocument();
 
     const openRecoveryCodeButton = screen.getByRole("button", { name: "Open recovery code" });
-    expect(openRecoveryCodeButton).not.toHaveClass("fab-buzz-once");
+    expect(openRecoveryCodeButton).not.toHaveClass(fabStyles.buzz);
 
     fireEvent.click(screen.getByRole("checkbox", { name: "Read" }));
-    expect(openRecoveryCodeButton).toHaveClass("fab-buzz-once");
+    expect(openRecoveryCodeButton).toHaveClass(fabStyles.buzz);
 
-    await waitFor(() => expect(openRecoveryCodeButton).not.toHaveClass("fab-buzz-once"), {
+    await waitFor(() => expect(openRecoveryCodeButton).not.toHaveClass(fabStyles.buzz), {
       timeout: 2000,
     });
 
@@ -117,6 +118,6 @@ describe("Home view", () => {
     expect(screen.getByPlaceholderText("AB12")).toBeInTheDocument();
 
     fireEvent.click(screen.getByRole("checkbox", { name: "Read" }));
-    expect(openRecoveryCodeButton).not.toHaveClass("fab-buzz-once");
+    expect(openRecoveryCodeButton).not.toHaveClass(fabStyles.buzz);
   });
 });

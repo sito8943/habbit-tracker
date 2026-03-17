@@ -1,13 +1,16 @@
 import { NavLink } from "react-router";
-import { getTextLinkClass } from "./utils";
+import styles from "./Navbar.module.css";
+
+const getLinkClass = ({ isActive }: { isActive: boolean }): string =>
+  isActive ? `${styles.link} ${styles.linkActive}` : styles.link;
 
 const Navbar = () => {
   return (
-    <nav className="my-4 pr-4 flex gap-2 w-full justify-end" aria-label="Primary navigation">
-      <NavLink to="/" end className={getTextLinkClass}>
+    <nav className={styles.nav} aria-label="Primary navigation">
+      <NavLink to="/" end className={getLinkClass}>
         Today
       </NavLink>
-      <NavLink to="/calendar" className={getTextLinkClass}>
+      <NavLink to="/calendar" className={getLinkClass}>
         Calendar
       </NavLink>
     </nav>

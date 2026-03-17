@@ -1,0 +1,134 @@
+.aside {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  z-index: 40;
+  width: 100%;
+  max-width: 24rem;
+  padding: 0.5rem;
+  transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (min-width: 768px) {
+  .aside {
+    right: 1rem;
+    bottom: 1rem;
+  }
+}
+
+.asideVisible {
+  pointer-events: auto;
+  opacity: 1;
+}
+
+.asideHidden {
+  pointer-events: none;
+  opacity: 0;
+}
+
+.section {
+  position: relative;
+  border-radius: 0.5rem;
+  border: 1px solid var(--color-border);
+  background-color: color-mix(in srgb, var(--color-base-light) 90%, transparent);
+  padding: 1rem;
+  box-shadow:
+    0 10px 15px -3px rgb(0 0 0 / 0.1),
+    0 4px 6px -4px rgb(0 0 0 / 0.1);
+  backdrop-filter: blur(12px);
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sectionVisible {
+  transform: translateY(0) scale(1);
+}
+
+.sectionHidden {
+  transform: translateY(0.5rem) scale(0.95);
+}
+
+.closeBtn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: var(--color-text-muted);
+}
+
+.title {
+  padding-right: 3.5rem;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.description {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--color-text-muted);
+}
+
+.form {
+  margin-top: 0.75rem;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.label {
+  display: grid;
+  gap: 0.25rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--color-text-muted);
+}
+
+.codeInput {
+  border-radius: 0.375rem;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-base-light);
+  padding: 0.5rem;
+  font-family:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
+    monospace;
+  text-transform: uppercase;
+  color: var(--color-text);
+}
+
+.btnRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.codeDisplay {
+  margin-top: 0.75rem;
+  border-radius: 0.375rem;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-base);
+  padding: 0.5rem 0.75rem;
+  font-family:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
+    monospace;
+  text-align: center;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  letter-spacing: 0.25em;
+  color: var(--color-text);
+}
+
+.restoreLink {
+  margin-top: 0.5rem;
+  padding-left: 0;
+  padding-right: 0;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: var(--color-primary);
+}
+
+.notice {
+  margin-top: 0.75rem;
+  padding: 0.5rem;
+}

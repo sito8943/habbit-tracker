@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import App from "./App";
 import { createMockSupabaseManager } from "./test/mockSupabaseManager";
 import { renderWithProviders } from "./test/renderWithProviders";
+import fabStyles from "./components/SyncCodeFab/SyncCodeFab.module.css";
 
 describe("App integration", () => {
   it("supports the core flow across Home and Calendar views", async () => {
@@ -62,14 +63,14 @@ describe("App integration", () => {
       },
       { timeout: 10_000 }
     );
-    expect(openRecoveryCodeButton).not.toHaveClass("fab-buzz-once");
+    expect(openRecoveryCodeButton).not.toHaveClass(fabStyles.buzz);
 
     fireEvent.change(screen.getByPlaceholderText("New habit..."), {
       target: { value: "Read book" },
     });
     fireEvent.click(screen.getByRole("button", { name: "Add" }));
 
-    await waitFor(() => expect(openRecoveryCodeButton).toHaveClass("fab-buzz-once"));
+    await waitFor(() => expect(openRecoveryCodeButton).toHaveClass(fabStyles.buzz));
     fireEvent.click(openRecoveryCodeButton);
 
     expect(
