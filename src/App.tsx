@@ -2,9 +2,9 @@ import { Suspense, lazy } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router";
 import styles from "./App.module.css";
 
-const View = lazy(() => import("./layouts/View"));
-const Home = lazy(() => import("./views/Home"));
-const Calendar = lazy(() => import("./views/Calendar"));
+const View = lazy(() => import("./shared/layouts/View"));
+const Home = lazy(() => import("./features/habits/views/Home"));
+const Calendar = lazy(() => import("./features/calendar/views/Calendar"));
 
 const RouteFallback = () => <p className={styles.routeFallback}>Loading...</p>;
 

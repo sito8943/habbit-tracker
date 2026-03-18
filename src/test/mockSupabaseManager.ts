@@ -1,5 +1,5 @@
-import type { SupabaseManagerLike } from "../lib/supabase/manager.types";
-import type { Habit, LogEntry } from "../utils/habits";
+import type { SupabaseManagerLike } from "../shared/lib/supabase/manager.types";
+import type { Habit, LogEntry } from "../features/habits/utils/habits";
 
 type SeedData = {
   habits?: Habit[];

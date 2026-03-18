@@ -1,9 +1,9 @@
 import { faSpinner, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useHabitList } from "../../hooks";
-import { IconButton } from "../Button";
-import { Notice } from "../Notice";
-import type { HabitListProps } from "./types";
+import { IconButton } from "../../../../shared/components/Button";
+import { Notice } from "../../../../shared/components/Notice";
+import type { HabitListProps } from "../types";
 import styles from "./HabitList.module.css";
 
 const HabitList = ({ onInteraction }: HabitListProps) => {

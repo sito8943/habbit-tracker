@@ -1,4 +1,4 @@
-import type { HabitsContextType } from "../../providers/Habits";
+import type { HabitsContextType } from "../../../habits/providers/Habits";
 
 export type UseCalendarViewResult = {
   logs: HabitsContextType["logs"];

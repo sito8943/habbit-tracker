@@ -2,7 +2,7 @@ import { QueryClient } from "@tanstack/react-query";
 import { render, type RenderOptions } from "@testing-library/react";
 import type { ReactElement } from "react";
 import { AppProviders } from "../providers";
-import type { SupabaseManagerLike } from "../lib/supabase/manager.types";
+import type { SupabaseManagerLike } from "../shared/lib/supabase/manager.types";
 
 export const createTestQueryClient = () =>
   new QueryClient({

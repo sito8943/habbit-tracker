@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { useNavigate } from "react-router";
-import { useHabitsContext } from "../../providers/Habits";
+import { useHabitsContext } from "../../../habits/providers/Habits";
 import type { UseCalendarViewResult } from "./types";
 
 export const useCalendarView = (): UseCalendarViewResult => {

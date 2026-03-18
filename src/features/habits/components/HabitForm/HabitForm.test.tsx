@@ -1,9 +1,9 @@
 import { fireEvent, screen, waitFor } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import HabitForm from "./HabitForm";
-import { COLORS } from "../../utils/constants";
-import { createMockSupabaseManager } from "../../test/mockSupabaseManager";
-import { renderWithProviders } from "../../test/renderWithProviders";
+import { COLORS } from "../../../../shared/utils/constants";
+import { createMockSupabaseManager } from "../../../../test/mockSupabaseManager";
+import { renderWithProviders } from "../../../../test/renderWithProviders";
 
 describe("HabitForm", () => {
   it("renders and submits without crashing", async () => {

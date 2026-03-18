@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import App from "./App";
 import { createMockSupabaseManager } from "./test/mockSupabaseManager";
 import { renderWithProviders } from "./test/renderWithProviders";
-import fabStyles from "./components/SyncCodeFab/SyncCodeFab.module.css";
+import fabStyles from "./features/sync/components/SyncCodeFab/SyncCodeFab.module.css";
 
 describe("App integration", () => {
   it("supports the core flow across Home and Calendar views", async () => {

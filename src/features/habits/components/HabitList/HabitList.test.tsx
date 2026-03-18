@@ -1,8 +1,8 @@
 import { screen, waitFor } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import HabitList from "./HabitList";
-import { createMockSupabaseManager } from "../../test/mockSupabaseManager";
-import { renderWithProviders } from "../../test/renderWithProviders";
+import { createMockSupabaseManager } from "../../../../test/mockSupabaseManager";
+import { renderWithProviders } from "../../../../test/renderWithProviders";
 
 describe("HabitList", () => {
   it("renders without crashing", async () => {

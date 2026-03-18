@@ -1,12 +1,12 @@
 import { fireEvent, screen, waitFor } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { MemoryRouter, Route, Routes } from "react-router";
-import { COLORS } from "../utils/constants";
+import { COLORS } from "../../../shared/utils/constants";
 import Home from "./Home";
-import { createMockSupabaseManager } from "../test/mockSupabaseManager";
-import { renderWithProviders } from "../test/renderWithProviders";
+import { createMockSupabaseManager } from "../../../test/mockSupabaseManager";
+import { renderWithProviders } from "../../../test/renderWithProviders";
 import { today } from "../utils/habits";
-import fabStyles from "../components/SyncCodeFab/SyncCodeFab.module.css";
+import fabStyles from "../../sync/components/SyncCodeFab/SyncCodeFab.module.css";
 
 describe("Home view", () => {
   afterEach(() => {

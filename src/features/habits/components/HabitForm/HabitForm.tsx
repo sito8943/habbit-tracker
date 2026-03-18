@@ -1,7 +1,7 @@
 import { useHabitForm } from "../../hooks";
-import { Button } from "../Button";
-import { Notice } from "../Notice";
-import type { HabitFormProps } from "./types";
+import { Button } from "../../../../shared/components/Button";
+import { Notice } from "../../../../shared/components/Notice";
+import type { HabitFormProps } from "../types";
 import styles from "./HabitForm.module.css";
 
 const HabitForm = ({ onInteraction }: HabitFormProps) => {

@@ -1,5 +1,5 @@
-import { HabitsClient } from "../../entities/habits";
-import { LogsClient } from "../../entities/habitLogs";
+import { HabitsClient } from "../../../features/habits/entities/habits";
+import { LogsClient } from "../../../features/habits/entities/habitLogs";
 import { createSupabaseClient } from "./client";
 import type { SupabaseManagerLike } from "./manager.types";
 

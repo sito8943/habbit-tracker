@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import { MemoryRouter, Route, Routes } from "react-router";
 import type { ReactElement } from "react";
 import View from "./View";
-import { createMockSupabaseManager } from "../test/mockSupabaseManager";
+import { createMockSupabaseManager } from "../../test/mockSupabaseManager";
 import { AppProviders } from "../providers";
 
 const renderView = (indexElement: ReactElement = <p data-testid="outlet-content">outlet</p>) =>

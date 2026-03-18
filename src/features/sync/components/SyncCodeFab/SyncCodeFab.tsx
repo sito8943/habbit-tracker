@@ -1,6 +1,6 @@
 import { faKey } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IconButton } from "../Button";
+import { IconButton } from "../../../../shared/components/Button";
 import type { SyncCodeFabProps } from "./types";
 import styles from "./SyncCodeFab.module.css";
 

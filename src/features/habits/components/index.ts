@@ -1,5 +1,5 @@
-import HabitForm from "./HabitForm";
-import HabitList from "./HabitList";
+import HabitForm from "./HabitForm/HabitForm";
+import HabitList from "./HabitList/HabitList";
 
 export { HabitList };
 export { HabitForm };

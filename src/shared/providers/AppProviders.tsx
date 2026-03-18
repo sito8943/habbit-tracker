@@ -1,9 +1,9 @@
 import { QueryClientProvider } from "@tanstack/react-query";
 import { useState } from "react";
 import { createQueryClient } from "../lib/query/queryClient";
-import { HabitsProvider } from "./Habits";
+import { HabitsProvider } from "../../features/habits/providers/Habits";
 import { SupabaseProvider } from "./Supabase";
-import { SyncCodeProvider } from "./SyncCode";
+import { SyncCodeProvider } from "../../features/sync/providers/SyncCode";
 import type { AppProvidersProps } from "./types";
 
 export const AppProviders = ({ children, manager, queryClient }: AppProvidersProps) => {

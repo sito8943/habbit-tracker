@@ -1,5 +1,5 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
-import type { Database } from "../../lib/supabase/database.types";
+import type { Database } from "../../../../shared/lib/supabase/database.types";
 import type { Habit } from "../../utils/habits";
 import type { CreateHabitInput, HabitsClientContract } from "./types";
 

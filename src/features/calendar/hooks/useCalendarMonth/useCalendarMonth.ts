@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { formatDate, getMonthDays, hasAnyLog } from "../../utils/habits";
+import { formatDate, getMonthDays, hasAnyLog } from "../../../habits/utils/habits";
 import { MONTH_LABEL_FORMAT_OPTIONS } from "./constants";
 import type { UseCalendarMonthOptions, UseCalendarMonthResult } from "./types";
 import { resolveCalendarDayAppearance } from "./utils";

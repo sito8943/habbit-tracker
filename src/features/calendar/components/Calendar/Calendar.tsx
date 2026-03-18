@@ -1,6 +1,6 @@
 import { useCalendarMonth } from "../../hooks";
-import { WEEKDAYS } from "../../utils/constants";
-import { Button } from "../Button";
+import { WEEKDAYS } from "../../../../shared/utils/constants";
+import { Button } from "../../../../shared/components/Button";
 import type { CalendarPropsTypes } from "./types";
 import styles from "./Calendar.module.css";
 

@@ -1,5 +1,5 @@
-import { Button } from "../Button";
-import { Notice } from "../Notice";
+import { Button } from "../../../../shared/components/Button";
+import { Notice } from "../../../../shared/components/Notice";
 import { useAuthPromptModal } from "../../hooks";
 import type { AuthPromptModalProps } from "./types";
 import styles from "./AuthPromptModal.module.css";

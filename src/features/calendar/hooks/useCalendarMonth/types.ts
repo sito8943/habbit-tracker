@@ -1,5 +1,5 @@
-import type { ButtonColor, ButtonVariant } from "../../components/Button";
-import type { LogEntry } from "../../utils/habits";
+import type { ButtonColor, ButtonVariant } from "../../../../shared/components/Button";
+import type { LogEntry } from "../../../habits/utils/habits";
 
 export type UseCalendarMonthOptions = {
   logs: LogEntry[];

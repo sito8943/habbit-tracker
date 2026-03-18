@@ -1,4 +1,4 @@
-import type { LogEntry } from "../../utils/habits";
+import type { LogEntry } from "../../../habits/utils/habits";
 
 export type CalendarPropsTypes = {
   logs: LogEntry[];

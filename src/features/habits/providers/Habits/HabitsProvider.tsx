@@ -6,10 +6,10 @@ import {
   useLogsQuery,
   useToggleLogMutation,
 } from "../../entities";
-import useLocalStorage from "../../hooks/useLocalStorage";
+import useLocalStorage from "../../../../shared/hooks/useLocalStorage";
 import { getHabitLogsCacheKey, getHabitsCacheKey } from "../../utils/cache";
 import { today, type Habit, type LogEntry } from "../../utils/habits";
-import { useSyncCode } from "../SyncCode";
+import { useSyncCode } from "../../../sync/providers/SyncCode";
 import type { HabitsContextType, HabitsProviderProps } from "./types";
 import { mergeErrors } from "./utils";
 import { HabitsContext } from "./useHabitsContext";

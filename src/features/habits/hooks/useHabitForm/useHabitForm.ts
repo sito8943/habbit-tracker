@@ -1,6 +1,6 @@
 import { useCallback, useState, type ChangeEvent, type FormEvent } from "react";
 import { useHabitsContext } from "../../providers/Habits";
-import { COLORS } from "../../utils/constants";
+import { COLORS } from "../../../../shared/utils/constants";
 import { DEFAULT_HABIT_COLOR } from "./constants";
 import type { UseHabitFormOptions, UseHabitFormResult } from "./types";
 

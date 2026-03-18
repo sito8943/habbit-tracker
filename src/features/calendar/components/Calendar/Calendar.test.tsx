@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { today } from "../../utils/habits";
+import { today } from "../../../habits/utils/habits";
 import Calendar from "./Calendar";
 
 describe("Calendar", () => {
